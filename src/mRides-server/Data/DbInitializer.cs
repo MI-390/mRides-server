@@ -12,25 +12,9 @@ namespace mRides_server.Data
         {
             context.Database.EnsureCreated();
 
-            // Look for any students.
-            if (context.Users.Any())
-            {
-                return;   // DB has been seeded
-            }
 
-            var users = new User[]
-            {
-            new User{FirstName="Carson",LastName="Alexander"},
-            new User{FirstName="2",LastName="4454"},
 
-            };
-            foreach (User u in users)
-            {
-                context.Users.Add(u);
-            }
-            context.SaveChanges();
 
         }
-    
     }
 }
