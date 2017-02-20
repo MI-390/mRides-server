@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using mRides_server.Data;
 using Microsoft.EntityFrameworkCore;
+using MySQL.Data.EntityFrameworkCore.Extensions;
 
 namespace mRides_server
 {
@@ -32,7 +33,7 @@ namespace mRides_server
             // Add framework services.
             services.AddMvc();
             services.AddDbContext<ServerContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
