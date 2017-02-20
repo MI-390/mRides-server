@@ -34,9 +34,13 @@ namespace mRides_server.Controllers
         }
 
         // POST api/values
+        [Route("addPost")]
         [HttpPost]
-        public void Post([FromBody]string value)
+        public object Post([FromBody]User user1)
         {
+            _context.Users.Add(user1)
+            _context.SaveChanges();
+            return _context.Users;
         }
 
         // PUT api/values/5
