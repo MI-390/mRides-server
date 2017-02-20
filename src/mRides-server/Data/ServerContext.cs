@@ -23,10 +23,10 @@ namespace mRides_server.Data
             base.OnModelCreating(builder);
 
             builder.Entity<User>()
-                .HasDiscriminator<int>("Type")
-                .HasValue<Driver>(2)
-                .HasValue<Rider>(1)
-                .HasValue<User>(0);
+                .HasDiscriminator<string>("Type")
+                .HasValue<Driver>("Driver")
+                .HasValue<Rider>("Rider")
+                .HasValue<User>("User");
                 
         }
     }

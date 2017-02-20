@@ -38,7 +38,7 @@ namespace mRides_server.Controllers
         [HttpPost]
         public object Post([FromBody]User user1)
         {
-            _context.Users.Add(user1)
+            _context.Users.Add(user1);
             _context.SaveChanges();
             return _context.Users;
         }
