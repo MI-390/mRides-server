@@ -11,5 +11,11 @@ namespace mRides_server.Models
         public int ID { get; set; }
         public string LastName { get; set; }
         public string FirstName { get; set; }
+        public string prefferedLanguage { get; set;}
+        public Boolean isSmoker { get; set; }
+        public Boolean isHandicap { get; set; }
+        public Boolean hasLuggage { get; set; }
+        public long GSD { get; set; }
+        public ICollection<Ride> Rides { get; set; }
     }
 }

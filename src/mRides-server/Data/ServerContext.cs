@@ -15,5 +15,6 @@ namespace mRides_server.Data
         }
             
         public DbSet<User> Users { get; set; }
+        public DbSet<Ride> Riders { get; set; }
     }
 }
