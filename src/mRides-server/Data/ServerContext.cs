@@ -15,6 +15,20 @@ namespace mRides_server.Data
         }
             
         public DbSet<User> Users { get; set; }
-        public DbSet<Ride> Riders { get; set; }
+        public DbSet<Ride> Rides { get; set; }
+        public DbSet<Rider> Riders { get; set; }
+        public DbSet<Driver> Drivers { get; set; }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.Entity<User>()
+                .HasDiscriminator<int>("Type")
+                .HasValue<Driver>(2)
+                .HasValue<Rider>(1)
+                .HasValue<User>(0);
+                
+        }
     }
+    
 }

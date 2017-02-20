@@ -9,7 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using mRides_server.Data;
 using Microsoft.EntityFrameworkCore;
-using MySQL.Data.EntityFrameworkCore.Extensions;
+using MySQL.Data.Entity.Extensions;
 
 namespace mRides_server
 {
