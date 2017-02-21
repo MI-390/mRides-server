@@ -10,7 +10,7 @@ namespace mRides_server.Models
         public int ID { get; set; }
 
         public int RiderId { get; set; }
-        public Rider Rider { get; set; }
+        public User Rider { get; set; }
 
         public int RideId{ get; set; }
         public Ride Ride { get; set; } 

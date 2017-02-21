@@ -17,6 +17,12 @@ namespace mRides_server.Models
         public Boolean isHandicap { get; set; }
         public Boolean hasLuggage { get; set; }
         public long GSD { get; set; }
+
+        //[InverseProperty("Driver")]
+        public ICollection<Ride> Rides { get; set; }
+
         
+        public ICollection<UserRides> UserRides { get; set; }
+
     }
 }
