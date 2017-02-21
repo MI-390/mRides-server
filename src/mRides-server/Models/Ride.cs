@@ -14,8 +14,9 @@ namespace mRides_server.Models
         public Boolean isWeekly { get; set; }
 
         public int DriverID { get; set; }
-        public Driver Driver { get; set; }
-        public ICollection<Rider> Riders { get; set; }
+        public User Driver { get; set; }
+        //public ICollection<Rider> Riders { get; set; }
 
+        public ICollection<UserRides> UserRides { get; set; }
     }
 }
