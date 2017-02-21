@@ -18,16 +18,27 @@ namespace mRides_server.Data
         public DbSet<Ride> Rides { get; set; }
         public DbSet<Rider> Riders { get; set; }
         public DbSet<Driver> Drivers { get; set; }
+        //public DbSet<UserRides> UserRides { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
             builder.Entity<User>()
-                .HasDiscriminator<int>("Type")
-                .HasValue<Driver>(2)
-                .HasValue<Rider>(1)
-                .HasValue<User>(0);
-                
+                .HasDiscriminator<string>("Type")
+                .HasValue<Driver>("Driver")
+                .HasValue<Rider>("Rider")
+                .HasValue<User>("User");
+
+            builder.Entity<UserRides>()
+                .HasOne(s=>s.Ride)
+                .WithMany(p => p.UserRides)
+                .HasForeignKey(pt => pt.ID);
+
+            builder.Entity<UserRides>()
+                .HasOne(pt => pt.Rider)
+                .WithMany(t => t.UserRides)
+                .HasForeignKey(pt => pt.ID);
+
         }
     }
     

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,6 +17,6 @@ namespace mRides_server.Models
         public Boolean isHandicap { get; set; }
         public Boolean hasLuggage { get; set; }
         public long GSD { get; set; }
-        public ICollection<Ride> Rides { get; set; }
+        
     }
 }

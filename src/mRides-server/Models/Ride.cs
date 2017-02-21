@@ -15,7 +15,8 @@ namespace mRides_server.Models
 
         public int DriverID { get; set; }
         public Driver Driver { get; set; }
-        public ICollection<Rider> Riders { get; set; }
+        //public ICollection<Rider> Riders { get; set; }
 
+        public ICollection<UserRides> UserRides { get; set; }
     }
 }
