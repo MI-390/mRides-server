@@ -12,8 +12,14 @@ namespace mRides_server.Models
         public int UserId { get; set; }
         public User User { get; set; }
 
-        public string UserType { get; set; }
         public int numberOfSeats { get; set; }
+
+        public string UserType { get; set; }
+        public string destination { get; set; }
+        public string location { get; set; }
+        public DateTime dateTime { get; set; }
+        public Boolean isWeekly { get; set; }
+
 
 
 

@@ -23,10 +23,6 @@ namespace mRides_server.Logic
             return Rides;
             
         }
-        public List<Ride> getRides(User user)
-        {
-            return null;
-        }
-
+        
     }
 }
