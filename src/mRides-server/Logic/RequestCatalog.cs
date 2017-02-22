@@ -57,6 +57,14 @@ namespace mRides_server.Logic
             _context.SaveChanges();
         }
 
+        public void addDriver(int requestId,User driver)
+        {
+
+        }
+        public void addRider(int requestId, User driver)
+        {
+
+        }
 
     }
 }
