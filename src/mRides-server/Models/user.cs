@@ -24,8 +24,11 @@ namespace mRides_server.Models
         //Rides as Rider
         public ICollection<UserRides> RidesAsRider { get; set; }
 
-        //All Requests
-        public ICollection<Request> Requests { get; set; }
+        //Requests as Driver
+        public ICollection<Request> RequestsAsDriver { get; set; }
+
+        //Requests as Rider
+        public ICollection<RiderRequest> RequestAsRider { get; set; }
 
     }
 }
