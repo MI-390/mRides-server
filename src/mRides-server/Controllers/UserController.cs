@@ -39,7 +39,7 @@ namespace mRides_server.Controllers
         [HttpPost]
         public object Post([FromBody]User user1)
         {
-            var r = _context.Users.Include(c => c.RidesAsDriver).Single(u=>u.ID==1);
+            //var r = _context.Users.Include(c => c.RidesAsDriver).Single(u=>u.ID==1);
  
             _context.Users.Add(user1);
             _context.SaveChanges();
