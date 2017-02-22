@@ -53,10 +53,16 @@ namespace mRides_server.Logic
                     Request = request,
                     Rider = rider
                 };
+                request.RiderRequests = new List<RiderRequest>();
                 request.RiderRequests.Add(r);
             }
-        
             _context.Requests.Add(request);
+            _context.SaveChanges();
+        }
+
+        public void deleteRequest(int ID)
+        {
+            _context.Remove(_context.Requests.Find(ID));
             _context.SaveChanges();
         }
 

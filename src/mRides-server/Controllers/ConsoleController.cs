@@ -23,18 +23,22 @@ namespace mRides_server.Controllers
             _requestCatalog = new RequestCatalog(_context);
         }
 
-      
-        
+
+
         [HttpPost]
         public void createRequest([FromBody]dynamic sentObject)
         {
             //var r = _context.Users.Include(c => c.RidesAsDriver).Single(u=>u.ID==1);
             Request request = sentObject.request.ToObject<Request>();
-            _requestCatalog.createNewRequest(request, (int)sentObject.userid,(string) sentObject.type);
-          
-           
+            _requestCatalog.createNewRequest(request, (int)sentObject.userid, (string)sentObject.type);
+        }
+        [HttpGet("{id}")]
+        public void deleteRequest(int ID)
+        {
+            
+            _requestCatalog.deleteRequest(ID);
         }
 
-        
+
     }
 }
