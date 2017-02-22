@@ -13,10 +13,12 @@ namespace mRides_server.Models
         public DateTime dateTime { get; set; }
         public Boolean isWeekly { get; set; }
 
+
+        //1 Driver per Ride
         public int DriverID { get; set; }
         public User Driver { get; set; }
-        //public ICollection<Rider> Riders { get; set; }
-
+        
+        //Many Riders through an association table
         public ICollection<UserRides> UserRides { get; set; }
     }
 }

@@ -18,11 +18,14 @@ namespace mRides_server.Models
         public Boolean hasLuggage { get; set; }
         public long GSD { get; set; }
 
-        //[InverseProperty("Driver")]
-        public ICollection<Ride> Rides { get; set; }
+        //Rides as Driver
+        public ICollection<Ride> RidesAsDriver { get; set; }
 
-        
-        public ICollection<UserRides> UserRides { get; set; }
+        //Rides as Rider
+        public ICollection<UserRides> RidesAsRider { get; set; }
+
+        //All Requests
+        public ICollection<Request> Requests { get; set; }
 
     }
 }
