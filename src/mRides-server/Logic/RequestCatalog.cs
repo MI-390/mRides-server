@@ -25,18 +25,36 @@ namespace mRides_server.Logic
         public List<mRides_server.Models.Request> getRequestsForDrivers()
         {
            return  _context.Requests
-                .Where(s => s.type== "rider")
+                .Include(s=>s.Driver)
+                .Where(s => s.Driver== null)
                 .ToList();
         }
         public List<mRides_server.Models.Request> getRequestsForRiders()
         {
-            return _context.Requests
-                 .Where(s => s.type == "driver")
-                 .ToList();
+            return null;
+           // return _context.Requests
+                 //.Where(s => s.type == "driver")
+                 //.ToList();
         }
-        public void createNewRequest(Request request, User user)
+        public void createNewRequest(Request request, int userId,string type)
         {
-            
+            if (type == "driver")
+            {
+                request.Driver = _context.Users.Find(userId);
+            }
+            else
+            {
+                User rider = _context.Users.Find(userId);
+                RiderRequest r = new RiderRequest
+                {
+                    Request = request,
+                    Rider = rider
+                };
+                request.RiderRequests.Add(r);
+            }
+        
+            _context.Requests.Add(request);
+            _context.SaveChanges();
         }
 
 

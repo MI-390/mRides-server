@@ -13,7 +13,7 @@ namespace mRides_server.Models
         public DateTime dateTime { get; set; }
         public Boolean isWeekly { get; set; }
 
-        public string type;
+        //public string type;
 
         //1 Driver per Ride
         public int DriverID { get; set; }
