@@ -1,4 +1,4 @@
-﻿{
+{
   "dependencies": {
     "Microsoft.NETCore.App": { "type": "platform", "version": "1.1.0" },
     "Microsoft.AspNetCore.Mvc": "1.1.0",
@@ -18,7 +18,8 @@
     "Microsoft.Extensions.Logging.Console": "1.1.0",
     "Microsoft.Extensions.Logging.Debug": "1.1.0",
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.1.0",
-    "SapientGuardian.EntityFrameworkCore.MySql": "7.1.19"
+    "SapientGuardian.EntityFrameworkCore.MySql": "7.1.19",
+    "Swashbuckle.AspNetCore": "1.0.0-rc1"
   },
 
   "tools": {
@@ -37,7 +38,8 @@
 
   "buildOptions": {
     "emitEntryPoint": true,
-    "preserveCompilationContext": true
+    "preserveCompilationContext": true,
+    "xmlDoc": true
   },
 
   "runtimeOptions": {

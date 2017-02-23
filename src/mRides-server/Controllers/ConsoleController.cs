@@ -13,6 +13,8 @@ using mRides_server.Logic;
 namespace mRides_server.Controllers
 {
     [Route("api/[controller]/[action]")]
+
+
     public class ConsoleController : Controller
     {
         private ServerContext _context;
@@ -39,7 +41,7 @@ namespace mRides_server.Controllers
         public void createUser([FromBody]User user)
         {
             
-            _userCatalog.
+            
         }
 
         [HttpGet("{id}")]
