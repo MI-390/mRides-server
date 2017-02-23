@@ -36,7 +36,7 @@ namespace mRides_server.Controllers
             _requestCatalog.createNewRequest(request, (int)sentObject.userid, (string)sentObject.type);
         }
 
-        [HttpGet("{id}")]
+        [HttpDelete("{id}")]
         public void deleteRequest(int ID)
         {
             
