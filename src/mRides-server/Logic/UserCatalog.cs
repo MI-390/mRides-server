@@ -19,5 +19,10 @@ namespace mRides_server.Logic
             _context.Users.Add(user);
             _context.SaveChanges();
         }
+        public void updateUser(User user)
+        {
+            //_context.Users.Find(userId);
+            
+        }
     }
 }

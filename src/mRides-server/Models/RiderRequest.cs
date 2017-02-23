@@ -15,6 +15,10 @@ namespace mRides_server.Models
         public int RequestID{ get; set; }
         public Request Request { get; set; } 
 
+        public string location { get; set; }
+        public string driverFeedback { get; set; }
+        public string riderFeedback { get; set; }
+
 
     }
 }
