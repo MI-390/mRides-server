@@ -17,6 +17,7 @@ namespace mRides_server.Controllers
     {
         private ServerContext _context;
         private RequestCatalog _requestCatalog;
+        private UserCatalog _userCatalog;
         public ConsoleController(ServerContext context)
         {
             _context = context;
@@ -32,6 +33,15 @@ namespace mRides_server.Controllers
             Request request = sentObject.request.ToObject<Request>();
             _requestCatalog.createNewRequest(request, (int)sentObject.userid, (string)sentObject.type);
         }
+
+
+        [HttpPost]
+        public void createUser([FromBody]User user)
+        {
+            
+            _userCatalog.
+        }
+
         [HttpGet("{id}")]
         public void deleteRequest(int ID)
         {

@@ -17,6 +17,7 @@ namespace mRides_server.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Ride> Rides { get; set; }
         public DbSet<Request> Requests { get; set; }
+        public DbSet<RiderRequest> RiderRequests { get; set; }
 
         //public DbSet<UserRides> UserRides { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
@@ -35,14 +36,16 @@ namespace mRides_server.Data
                 .HasForeignKey(pt => pt.ID);
 
             builder.Entity<RiderRequest>()
-               .HasOne(s => s.Request)
+               .HasOne(r=>r.Request)
                .WithMany(p => p.RiderRequests)
-               .HasForeignKey(pt => pt.ID);
+               .HasForeignKey(pt => pt.RequestID);
 
             builder.Entity<RiderRequest>()
                 .HasOne(pt => pt.Rider)
                 .WithMany(t => t.RequestAsRider)
-                .HasForeignKey(pt => pt.ID);
+                .HasForeignKey(pt => pt.RiderID);
+
+            
 
         }
     }

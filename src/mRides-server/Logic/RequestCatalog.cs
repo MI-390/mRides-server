@@ -16,6 +16,7 @@ namespace mRides_server.Logic
         public RequestCatalog(ServerContext context)
         {
             _context = context;
+            
         }
 
 
@@ -41,22 +42,29 @@ namespace mRides_server.Logic
         }
         public void createNewRequest(Request request, int userId,string type)
         {
+            
             if (type == "driver")
             {
                 request.Driver = _context.Users.Find(userId);
+                _context.Requests.Add(request);
             }
             else
             {
-                User rider = _context.Users.Find(userId);
+                User rider = _context.Users
+                    .Include(s => s.RequestAsRider)
+                    .First(s => s.ID == userId);
+
+           
                 RiderRequest r = new RiderRequest
                 {
                     Request = request,
                     Rider = rider
                 };
-                request.RiderRequests = new List<RiderRequest>();
-                request.RiderRequests.Add(r);
+
+                _context.RiderRequests.Add(r);
+                
             }
-            _context.Requests.Add(request);
+           // 
             _context.SaveChanges();
         }
 
