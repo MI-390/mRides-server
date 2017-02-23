@@ -36,6 +36,7 @@ namespace mRides_server
         {
             // Add framework services.
             services.AddMvc();
+            
             services.AddDbContext<ServerContext>(options =>
                 options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
             services.AddSwaggerGen();
@@ -63,17 +64,25 @@ namespace mRides_server
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                //routes.MapRoute("default", "api/{controller=User}/{action=Index}/{id?}");
+                //routes.MapRoute("post", "api/{controller=User}/{action=Index}");
+            });
             DbInitializer.Initialize(context);
 
             app.UseSwagger(c =>
             {
                 c.PreSerializeFilters.Add((swagger, httpReq) => swagger.Host = httpReq.Host.Value);
+
             });
+            
 
             app.UseSwaggerUi(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1 Docs");
+                c.SupportedSubmitMethods(new[] { "get", "post", "put", "patch" });
+
             });
         }
     }

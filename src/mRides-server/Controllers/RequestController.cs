@@ -12,15 +12,15 @@ using mRides_server.Logic;
 
 namespace mRides_server.Controllers
 {
+
+
     [Route("api/[controller]/[action]")]
-
-
-    public class ConsoleController : Controller
+    public class RequestController : Controller
     {
         private ServerContext _context;
         private RequestCatalog _requestCatalog;
         private UserCatalog _userCatalog;
-        public ConsoleController(ServerContext context)
+        public RequestController(ServerContext context)
         {
             _context = context;
             _requestCatalog = new RequestCatalog(_context);
@@ -34,14 +34,6 @@ namespace mRides_server.Controllers
             //var r = _context.Users.Include(c => c.RidesAsDriver).Single(u=>u.ID==1);
             Request request = sentObject.request.ToObject<Request>();
             _requestCatalog.createNewRequest(request, (int)sentObject.userid, (string)sentObject.type);
-        }
-
-
-        [HttpPost]
-        public void createUser([FromBody]User user)
-        {
-            
-            
         }
 
         [HttpGet("{id}")]

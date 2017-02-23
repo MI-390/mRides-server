@@ -11,7 +11,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace mRides_server.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
+
     public class UserController : Controller
     {
         private ServerContext _context;
@@ -20,24 +21,23 @@ namespace mRides_server.Controllers
             _context = context;
         }
 
-        // GET api/values/5
-        [HttpGet]
-        public object Get()
-        {
-            return _context.Users;
-        }
 
-        // GET api/values/5
-        [Route("getUserById={id}")]
-        public object Get(int id)
+        /// <summary>
+        /// This class is used to find a user by user id
+        /// </summary>
+  
+        [HttpGet("{id}")]
+        public object getUser(int id)
         {
             return _context.Users.Find(id);
         }
-    
+
+        /// <summary>
+        /// This class is used as an api for the search requests.
+        /// </summary>
         // POST api/values
-        [Route("addPost")]
         [HttpPost]
-        public object Post([FromBody]User user1)
+        public object createUser([FromBody]User user1)
         {
             //var r = _context.Users.Include(c => c.RidesAsDriver).Single(u=>u.ID==1);
  
@@ -46,20 +46,5 @@ namespace mRides_server.Controllers
             return _context.Users;
         }
 
-        // PUT api/values/5
-        [Route("add")]
-        public string addUser([FromQuery]string firstName, [FromQuery]string lastName)
-        {
-            _context.Users.Add(new User { FirstName = firstName, LastName = lastName });
-            _context.SaveChanges();
-
-            return "Added";
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }
