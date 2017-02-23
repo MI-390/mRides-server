@@ -25,7 +25,14 @@ namespace mRides_server.Controllers
         }
 
 
-        
+       public object findDrivers([FromBody]Request request)
+       {
+            return null;
+       }
+       public object findRiders([FromBody]Request request)
+       {
+            return null;
+       }
   
        
 

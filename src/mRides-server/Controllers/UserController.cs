@@ -47,6 +47,15 @@ namespace mRides_server.Controllers
             return user1; 
         }
 
+        /// <summary>
+        /// Returns all the reviews of a user
+        /// </summary>
+        [HttpGet("{id}")]
+        public object getReviews(int id)
+        {
+            
+        }
+
 
     }
 }
