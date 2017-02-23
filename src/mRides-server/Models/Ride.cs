@@ -15,10 +15,11 @@ namespace mRides_server.Models
 
 
         //1 Driver per Ride
-        public int DriverID { get; set; }
+        public int? DriverID { get; set; }
         public User Driver { get; set; }
         
         //Many Riders through an association table
         public ICollection<UserRides> UserRides { get; set; }
+
     }
 }

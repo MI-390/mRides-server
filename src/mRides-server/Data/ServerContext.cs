@@ -28,12 +28,12 @@ namespace mRides_server.Data
             builder.Entity<UserRides>()
                 .HasOne(s=>s.Ride)
                 .WithMany(p => p.UserRides)
-                .HasForeignKey(pt => pt.ID);
+                .HasForeignKey(pt => pt.RideId);
 
             builder.Entity<UserRides>()
                 .HasOne(pt => pt.Rider)
                 .WithMany(t => t.RidesAsRider)
-                .HasForeignKey(pt => pt.ID);
+                .HasForeignKey(pt => pt.RiderId);
 
             builder.Entity<RiderRequest>()
                .HasOne(r=>r.Request)

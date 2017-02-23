@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using mRides_server.Data;
 using mRides_server.Models;
 using Microsoft.EntityFrameworkCore;
+using mRides_server.Logic;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -16,9 +17,11 @@ namespace mRides_server.Controllers
     public class UserController : Controller
     {
         private ServerContext _context;
+        private UserCatalog _userCatalog;
         public UserController(ServerContext context)
         {
             _context = context;
+            _userCatalog = new UserCatalog(context);
         }
 
 
@@ -39,12 +42,11 @@ namespace mRides_server.Controllers
         [HttpPost]
         public object createUser([FromBody]User user1)
         {
+            _userCatalog.createUser(user1);
             //var r = _context.Users.Include(c => c.RidesAsDriver).Single(u=>u.ID==1);
- 
-            _context.Users.Add(user1);
-            _context.SaveChanges();
-            return _context.Users;
+            return user1; 
         }
+
 
     }
 }
