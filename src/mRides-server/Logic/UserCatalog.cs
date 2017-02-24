@@ -29,8 +29,11 @@ namespace mRides_server.Logic
         {
             List<object> feedbacks = new List<object>();
             User user = _context.Users
-                        .Include(u => u.RidesAsRider.Select(Ur => Ur.Ride).Select(r => r.Driver))
-                        .Include(u => u.RidesAsDriver.Select(r=>r.UserRides))
+                        .Include(u => u.RidesAsRider)
+                            .ThenInclude(Ur => Ur.Ride)
+                            .ThenInclude(r => r.Driver)
+                        .Include(u => u.RidesAsDriver)
+                            .ThenInclude(r=>r.UserRides)
                         .First(u => id == u.ID);
             //Adding feedback as riders(given by a driver)
             ICollection<mRides_server.Models.UserRides> ridesRider = user.RidesAsRider;
@@ -64,6 +67,11 @@ namespace mRides_server.Logic
             }
             return feedbacks;
 
+        }
+
+        public void leaveReview(int rideid,int userId)
+        {
+            _context.Rides.
         }
     }
 }

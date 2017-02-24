@@ -50,10 +50,10 @@ namespace mRides_server.Controllers
         /// <summary>
         /// Returns all the reviews of a user
         /// </summary>
-        [HttpGet("{id}")]
-        public object getReviews(int id)
+        [HttpGet("{userId}")]
+        public object getReviews(int userId)
         {
-            
+            return _userCatalog.getReviews(userId);
         }
 
 
