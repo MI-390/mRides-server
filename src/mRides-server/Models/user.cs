@@ -10,6 +10,7 @@ namespace mRides_server.Models
     {
         //The ID property will automatically become the primary key column of the database table that corresponds to this class
         public int ID { get; set; }
+        public long facebookID { get; set; }
         public string LastName { get; set; }
         public string FirstName { get; set; }
         public string prefferedLanguage { get; set;}

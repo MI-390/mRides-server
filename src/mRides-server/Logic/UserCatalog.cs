@@ -58,7 +58,7 @@ namespace mRides_server.Logic
                     {
                         feedback = u.riderFeedback,
                         givenAs = "driver",
-                        givenBy = _context.Users.Find(u.RiderId),
+                        givenBy = _context.Users.Find(u.RiderId).ID,
                         Ride = u.RideId
                     };
                     feedbacks.Add(feedback);

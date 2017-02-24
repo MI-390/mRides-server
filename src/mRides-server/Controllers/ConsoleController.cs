@@ -43,10 +43,14 @@ namespace mRides_server.Controllers
             Ride ride = sentObject.request.ToObject<Ride>();
             _rideCatalog.createNewRide(ride, (int)sentObject.userid, (string)sentObject.type);
         }
+        /// <summary>
+        /// Json object:{"rideid":1,"userid":1}
+        /// </summary>
+        /// <param name="sentObject"></param>
         [HttpPost]
-        public void addRiderToRequest([FromBody]dynamic sentObject)
+        public void addRiderToRide([FromBody]dynamic sentObject)
         {
-            _rideCatalog.addRiderToRequest(1,3);
+            _rideCatalog.addRiderToRide(sentObject.rideid,sentObject.userid);
         }
         
 
