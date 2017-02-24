@@ -75,13 +75,19 @@ namespace mRides_server.Logic
                         .Include(r => r.UserRides)
                         .First(r => r.ID == rideid);
             //If driver is leaving a review for a rider
-            if(ride.DriverID==reviewerId)
+            if(reviewerId == ride.DriverID)
             {
-
-                UserRides Ur = ride.UserRides.First(r => r.RideId == revieweeId);
+                UserRides Ur = ride.UserRides.First(r => r.RiderId == revieweeId);
                 Ur.driverFeedback = review;
+               // _context.Rides.Add(ride);
             }
-            ICollection<mRides_server.Models.UserRides> ur = ride.UserRides.Where(r=>r.RideId==);
+            else 
+            {
+                ride.UserRides.First(r => r.RiderId == reviewerId).riderFeedback = review;
+                //_context.Rides.Add(ride);
+            }
+            _context.SaveChanges();
+            //ICollection<mRides_server.Models.UserRides> ur = ride.UserRides.Where(r=>r.RideId==);
             
         }
     }
