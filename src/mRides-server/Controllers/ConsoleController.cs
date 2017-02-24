@@ -18,10 +18,12 @@ namespace mRides_server.Controllers
     {
         private ServerContext _context;
         private MatchingSession _matchingSession;
+        private RideCatalog _rideCatalog;
         public ConsoleController(ServerContext context)
         {
             _context = context;
             _matchingSession = new MatchingSession(context);
+            _rideCatalog = new RideCatalog(context);
         }
 
        [HttpPost]
@@ -34,8 +36,22 @@ namespace mRides_server.Controllers
        {
             return null;
        }
-  
-       
+        [HttpPost]
+        public void createRide([FromBody]dynamic sentObject)
+        {
+            //var r = _context.Users.Include(c => c.RidesAsDriver).Single(u=>u.ID==1);
+            Ride ride = sentObject.request.ToObject<Ride>();
+            _rideCatalog.createNewRide(ride, (int)sentObject.userid, (string)sentObject.type);
+        }
+        [HttpPost]
+        public void addRiderToRequest([FromBody]dynamic sentObject)
+        {
+            _rideCatalog.addRiderToRequest(1,3);
+        }
+        
+
+
+
 
     }
 }
