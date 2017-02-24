@@ -69,9 +69,20 @@ namespace mRides_server.Logic
 
         }
 
-        public void leaveReview(int rideid,int userId)
+        public void leaveReview(int rideid,int reviewerId,int revieweeId, string review)
         {
-            _context.Rides.
+            Ride ride=_context.Rides
+                        .Include(r => r.UserRides)
+                        .First(r => r.ID == rideid);
+            //If driver is leaving a review for a rider
+            if(ride.DriverID==reviewerId)
+            {
+
+                UserRides Ur = ride.UserRides.First(r => r.RideId == revieweeId);
+                Ur.driverFeedback = review;
+            }
+            ICollection<mRides_server.Models.UserRides> ur = ride.UserRides.Where(r=>r.RideId==);
+            
         }
     }
 }

@@ -24,12 +24,13 @@ namespace mRides_server.Controllers
             _matchingSession = new MatchingSession(context);
         }
 
-
-       public object findDrivers([FromBody]Request request)
+       [HttpPost]
+       public object findDrivers([FromHeader]string id,[FromBody]Request request)
        {
             return null;
        }
-       public object findRiders([FromBody]Request request)
+       [HttpPost]
+       public object findRiders([FromHeader]string id,[FromBody]Request request)
        {
             return null;
        }
