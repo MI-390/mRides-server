@@ -19,38 +19,61 @@ namespace mRides_server.Logic
             _context = context;
             _requestCatalog = new RequestCatalog(_context);
         }
-        public object findRiders(int id, Request request)
+        public object findRiders(int id, Request request,List<string> destinationCoordinates)
         {
+            //Create new driver request
             _requestCatalog.createNewRequest(request, id);
-            var l = request.destination.Split(',');
-            GeoCoordinate userDest = new GeoCoordinate(Double.Parse(l[0]), Double.Parse(l[1]));
 
-            var destRequests = _context.Requests
+            
+            //riderRequests is a list of requests of riders that are looking for a driver
+            var riderRequests = _context.Requests
                     .Include(r => r.RiderRequests)
                         .ThenInclude(rr => rr.Rider)
                         .Where(r => r.Driver == null);
-            List<Request> requestsList = new List<Request>();
-            foreach(var r in destRequests)
-            {
-                var compareDest = r.RiderRequests.FirstOrDefault().destination?.Split(',');
-                if (compareDest != null)
+            List<Request> filteredRequests = new List<Request>();
+
+            
+                foreach (Request riderRequest in riderRequests)
                 {
-                    var compareDestCoord = new GeoCoordinate(Double.Parse(compareDest[0]), Double.Parse(compareDest[1]));
-                    if (compareDestCoord.GetDistanceTo(userDest) <= 5000)
+                    string riderRequestDestination = riderRequest.RiderRequests.FirstOrDefault().destination;
+                    string[] rD = riderRequestDestination.Split(',');
+                    GeoCoordinate geoRiderRequestDestination = new GeoCoordinate(Double.Parse(rD[0]), Double.Parse(rD[1]));
+
+                    string riderRequestLocation = riderRequest.RiderRequests.FirstOrDefault().location;
+                    string[] rL = riderRequestLocation.Split(',');
+                    GeoCoordinate geoRiderRequestLocation = new GeoCoordinate(Double.Parse(rL[0]), Double.Parse(rL[1]));
+
+                    foreach (var destinationCoordinate in destinationCoordinates)
                     {
-                        requestsList.Add(r);
+                        var c = destinationCoordinate.Split(',');
+                        GeoCoordinate geoDestinationCoordinate = new GeoCoordinate(Double.Parse(c[0]), Double.Parse(c[1]));
+                        if (geoRiderRequestDestination.GetDistanceTo(geoDestinationCoordinate) <= 1000)
+                        {
+                            foreach (var destinationCoordinate2 in destinationCoordinates)
+                            {
+                                var c2 = destinationCoordinate2.Split(',');
+                                GeoCoordinate geoDestinationCoordinate2 = new GeoCoordinate(Double.Parse(c2[0]), Double.Parse(c2[1]));
+                                if (geoRiderRequestLocation.GetDistanceTo(geoDestinationCoordinate2) <= 1000)
+                                {
+                                    filteredRequests.Add(riderRequest);
+                                }
+
+                            }
+            
+                        }
+                    
                     }
-                }
+
+                    
+
             }
 
 
-                    //.Where(r =>
-                    //new GeoCoordinate(double.Parse(r.RiderRequests.FirstOrDefault().destination.Split(',')[0]), double.Parse(r.RiderRequests.FirstOrDefault().destination.Split(',')[1])).GetDistanceTo(userDest) <= 5000
-                    //);;
-            //NASSIM'S MAP ALGORITHM HERE
+
+            
             var response = new
             {
-                Requests = requestsList,
+                Requests = filteredRequests,
                 driverRequestID = request.ID
             };
             
