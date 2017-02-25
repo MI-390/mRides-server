@@ -29,11 +29,9 @@ namespace mRides_server.Controllers
 
 
         [HttpPost]
-        public void createRequest([FromBody]dynamic sentObject)
-        {
-            //var r = _context.Users.Include(c => c.RidesAsDriver).Single(u=>u.ID==1);
-            Request request = sentObject.request.ToObject<Request>();
-            _requestCatalog.createNewRequest(request, (int)sentObject.userid, (string)sentObject.type);
+        public void createRequest([FromBody]Request request,[FromHeader]string id,[FromHeader]string type)
+        { 
+            _requestCatalog.createNewRequest(request, Convert.ToInt32(id), type);
         }
 
         [HttpDelete("{id}")]
