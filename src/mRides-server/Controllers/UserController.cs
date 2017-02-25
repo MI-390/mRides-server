@@ -28,7 +28,11 @@ namespace mRides_server.Controllers
         /// <summary>
         /// This class is used to find a user by user id
         /// </summary>
-  
+        [HttpGet("{id}")]
+        public object getUserByFacebookId(int id)
+        {
+            return _context.Users.First(u=>u.facebookID==id);
+        }
         [HttpGet("{id}")]
         public object getUser(int id)
         {

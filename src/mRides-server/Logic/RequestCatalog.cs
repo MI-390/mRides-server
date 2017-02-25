@@ -40,10 +40,10 @@ namespace mRides_server.Logic
                  //.Where(s => s.type == "driver")
                  //.ToList();
         }
-        public void createNewRequest(Request request, int userId,string type)
+        public void createNewRequest(Request request, int userId)
         {
             
-            if (type == "driver")
+            if (request.type == "driver")
             {
                 request.Driver = _context.Users.Find(userId);
                 _context.Requests.Add(request);

@@ -21,7 +21,7 @@ namespace mRides_server.Logic
         }
         public object findRiders(int id, Request request)
         {
-            _requestCatalog.createNewRequest(request, id, "driver");
+            _requestCatalog.createNewRequest(request, id);
             var l = request.destination.Split(',');
             GeoCoordinate userDest = new GeoCoordinate(Double.Parse(l[0]), Double.Parse(l[1]));
             var destRequests=_context.Requests
