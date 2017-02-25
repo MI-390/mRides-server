@@ -31,7 +31,7 @@ namespace mRides_server.Controllers
         [HttpGet("{id}")]
         public object getUserByFacebookId(int id)
         {
-            return _context.Users.SingleOrDefault(u=>u.facebookID==id);
+            return _context.Users.FirstOrDefault(u=>u.facebookID==id);
         }
         [HttpGet("{id}")]
         public object getUser(int id)
