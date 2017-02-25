@@ -40,7 +40,7 @@ namespace mRides_server.Logic
                  //.Where(s => s.type == "driver")
                  //.ToList();
         }
-        public void createNewRequest(Request request, int userId)
+        public Request createNewRequest(Request request, int userId)
         {
             
             if (request.type == "driver")
@@ -69,6 +69,7 @@ namespace mRides_server.Logic
             }
            // 
             _context.SaveChanges();
+            return request;
         }
 
         public void deleteRequest(int ID)

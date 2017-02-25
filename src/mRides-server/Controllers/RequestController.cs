@@ -29,9 +29,9 @@ namespace mRides_server.Controllers
 
 
         [HttpPost]
-        public void createRequest([FromBody]Request request,[FromHeader]string id)
+        public Request createRequest([FromBody]Request request,[FromHeader]string id)
         { 
-            _requestCatalog.createNewRequest(request, Convert.ToInt32(id));
+            return _requestCatalog.createNewRequest(request, Convert.ToInt32(id));
         }
 
         [HttpDelete("{id}")]

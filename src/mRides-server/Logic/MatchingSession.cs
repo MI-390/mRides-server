@@ -57,6 +57,11 @@ namespace mRides_server.Logic
             
         }
 
+        public void confirm(int id, int driverReqId, int riderReqId)
+        {
+
+        }
+
 
     }
 }
