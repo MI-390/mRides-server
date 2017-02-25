@@ -53,12 +53,15 @@ namespace mRides_server.Logic
                 Requests = requestsList,
                 driverRequestID = request.ID
             };
+            
             return response;
             
         }
 
         public void confirm(int id, int driverReqId, int riderReqId)
         {
+            //EVENTUALLY WE WILL GET CONFIMRATION FROM BOTH PARTIES
+            _requestCatalog.mergeRiderRequestToRequest(driverReqId, riderReqId);
 
         }
 

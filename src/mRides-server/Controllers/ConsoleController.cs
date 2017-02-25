@@ -37,9 +37,14 @@ namespace mRides_server.Controllers
             return _matchingSession.findRiders(Convert.ToInt32(id), request);
        }
         [HttpPost]
-        public object confirm([FromHeader]string id, [FromBody]dynamic sentObj)
+        public void confirm([FromHeader]string id, [FromBody]dynamic sentObj)
         {
-            return void;
+            _matchingSession.confirm(Convert.ToInt32(id),sentObj.driverReqId,sentObj.RiderReqId);
+        }
+        [HttpPost]
+        public void test([FromBody]dynamic s)
+        {
+            var i = s;
         }
         [HttpPost]
         public void createRide([FromBody]dynamic sentObject)

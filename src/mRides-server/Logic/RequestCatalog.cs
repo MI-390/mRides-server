@@ -71,6 +71,18 @@ namespace mRides_server.Logic
             _context.SaveChanges();
             return request;
         }
+        public void mergeRiderRequestToRequest(int driverReqId,int riderReqId)
+        {
+            Request driverRequest = _context.Requests
+                .Include(r=>r.RiderRequests)
+                .First(r=>r.ID==driverReqId);
+            Request riderRequest= _context.Requests
+                .Include(r => r.RiderRequests)
+                .First(r => r.ID == riderReqId);
+            driverRequest.RiderRequests.Add(riderRequest.RiderRequests.FirstOrDefault());
+            _context.Remove(riderRequest);
+            _context.SaveChanges();
+        }
 
         public void deleteRequest(int ID)
         {
