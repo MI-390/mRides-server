@@ -24,12 +24,14 @@ namespace mRides_server.Logic
             _requestCatalog.createNewRequest(request, id);
             var l = request.destination.Split(',');
             GeoCoordinate userDest = new GeoCoordinate(Double.Parse(l[0]), Double.Parse(l[1]));
+            
             var destRequests=_context.Requests
                     .Include(r=>r.RiderRequests)
                         .ThenInclude(rr=>rr.Rider)
                     .Where(r =>
-                    new GeoCoordinate(double.Parse(r.destination.Split(',')[0]), double.Parse(r.destination.Split(',')[1])).GetDistanceTo(userDest) <= 5000
-                    );
+                    new GeoCoordinate(double.Parse(r.RiderRequests.FirstOrDefault().destination.Split(',')[0]), double.Parse(r.RiderRequests.FirstOrDefault().destination.Split(',')[1])).GetDistanceTo(userDest) <= 5000
+                    )
+                        .ToList();
             //NASSIM'S MAP ALGORITHM HERE
             var response = new
             {
@@ -39,6 +41,7 @@ namespace mRides_server.Logic
             return response;
             
         }
+
 
     }
 }

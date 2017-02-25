@@ -53,12 +53,15 @@ namespace mRides_server.Logic
                 User rider = _context.Users
                     .Include(s => s.RequestAsRider)
                     .First(s => s.ID == userId);
-
+                request.destination = null;
+                request.location = null;
            
                 RiderRequest r = new RiderRequest
                 {
                     Request = request,
-                    Rider = rider
+                    Rider = rider,
+                    destination=request.destination,
+                    location=request.location
                 };
 
                 _context.RiderRequests.Add(r);
