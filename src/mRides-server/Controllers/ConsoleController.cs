@@ -34,7 +34,7 @@ namespace mRides_server.Controllers
        [HttpPost]
        public object findRiders([FromHeader]string id,[FromBody]Request request)
        {
-            return null;
+            _matchingSession.findRiders((int)id,)
        }
         [HttpPost]
         public void createRide([FromBody]dynamic sentObject)

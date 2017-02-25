@@ -1,4 +1,5 @@
 ﻿using GeoCoordinatePortable;
+using Microsoft.EntityFrameworkCore;
 using mRides_server.Data;
 using mRides_server.Models;
 using System;
@@ -12,20 +13,31 @@ namespace mRides_server.Logic
     public class MatchingSession
     {
         ServerContext _context;
-        RequestCatalog _request;
+        RequestCatalog _requestCatalog;
         public MatchingSession(ServerContext context)
         {
             _context = context;
-            _request = new RequestCatalog(_context);
+            _requestCatalog = new RequestCatalog(_context);
         }
-        public object findDrivers(int id, Request request)
+        public object findRiders(int id, Request request)
         {
+            _requestCatalog.createNewRequest(request, id, "driver");
             var l = request.destination.Split(',');
             GeoCoordinate userDest = new GeoCoordinate(Double.Parse(l[0]), Double.Parse(l[1]));
-            _context.Requests.Where(r =>
-                new GeoCoordinate(double.Parse(r.destination.Split(',')[0]), double.Parse(r.destination.Split(',')[1])).GetDistanceTo(userDest) <= 5000
-                );
-
+            var destRequests=_context.Requests
+                    .Include(r=>r.RiderRequests)
+                        .ThenInclude(rr=>rr.Rider)
+                    .Where(r =>
+                    new GeoCoordinate(double.Parse(r.destination.Split(',')[0]), double.Parse(r.destination.Split(',')[1])).GetDistanceTo(userDest) <= 5000
+                    );
+            //NASSIM'S MAP ALGORITHM HERE
+            var response = new
+            {
+                Requests = destRequests,
+                driverRequestID = request.ID
+            };
+            return response;
+            
         }
 
     }
