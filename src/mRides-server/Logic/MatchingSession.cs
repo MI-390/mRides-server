@@ -21,14 +21,27 @@ namespace mRides_server.Logic
         }
         public object findRiders(int id, Request request)
         {
-            //_requestCatalog.createNewRequest(request, id);
+            _requestCatalog.createNewRequest(request, id);
             var l = request.destination.Split(',');
             GeoCoordinate userDest = new GeoCoordinate(Double.Parse(l[0]), Double.Parse(l[1]));
 
             var destRequests = _context.Requests
                     .Include(r => r.RiderRequests)
                         .ThenInclude(rr => rr.Rider)
-                        .Where(r=> new GeoCoordinate(double.Parse(r.RiderRequests.First().destination.Split(',')[0]), double.Parse(r.RiderRequests.First().destination.Split(',')[1])).GetDistanceTo(userDest) <= 5000);
+                        .Where(r => r.Driver == null);
+            List<Request> requestsList = new List<Request>();
+            foreach(var r in destRequests)
+            {
+                var compareDest = r.RiderRequests.FirstOrDefault().destination?.Split(',');
+                if (compareDest != null)
+                {
+                    var compareDestCoord = new GeoCoordinate(Double.Parse(compareDest[0]), Double.Parse(compareDest[1]));
+                    if (compareDestCoord.GetDistanceTo(userDest) <= 5000)
+                    {
+                        requestsList.Add(r);
+                    }
+                }
+            }
 
 
                     //.Where(r =>
@@ -37,7 +50,7 @@ namespace mRides_server.Logic
             //NASSIM'S MAP ALGORITHM HERE
             var response = new
             {
-                Requests = destRequests,
+                Requests = requestsList,
                 driverRequestID = request.ID
             };
             return response;
