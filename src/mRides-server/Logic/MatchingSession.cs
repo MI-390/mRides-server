@@ -21,17 +21,19 @@ namespace mRides_server.Logic
         }
         public object findRiders(int id, Request request)
         {
-            _requestCatalog.createNewRequest(request, id);
+            //_requestCatalog.createNewRequest(request, id);
             var l = request.destination.Split(',');
             GeoCoordinate userDest = new GeoCoordinate(Double.Parse(l[0]), Double.Parse(l[1]));
-            
-            var destRequests=_context.Requests
-                    .Include(r=>r.RiderRequests)
-                        .ThenInclude(rr=>rr.Rider)
-                    .Where(r =>
-                    new GeoCoordinate(double.Parse(r.RiderRequests.FirstOrDefault().destination.Split(',')[0]), double.Parse(r.RiderRequests.FirstOrDefault().destination.Split(',')[1])).GetDistanceTo(userDest) <= 5000
-                    )
-                        .ToList();
+
+            var destRequests = _context.Requests
+                    .Include(r => r.RiderRequests)
+                        .ThenInclude(rr => rr.Rider)
+                        .Where(r=> new GeoCoordinate(double.Parse(r.RiderRequests.First().destination.Split(',')[0]), double.Parse(r.RiderRequests.First().destination.Split(',')[1])).GetDistanceTo(userDest) <= 5000);
+
+
+                    //.Where(r =>
+                    //new GeoCoordinate(double.Parse(r.RiderRequests.FirstOrDefault().destination.Split(',')[0]), double.Parse(r.RiderRequests.FirstOrDefault().destination.Split(',')[1])).GetDistanceTo(userDest) <= 5000
+                    //);;
             //NASSIM'S MAP ALGORITHM HERE
             var response = new
             {
