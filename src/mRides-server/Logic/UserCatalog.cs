@@ -44,7 +44,8 @@ namespace mRides_server.Logic
                     feedback = u.driverFeedback,
                     givenAs = "rider",
                     givenBy = u.Ride.Driver,
-                    Ride = u.RideId
+                    Ride = u.RideId,
+                    stars=u.driverStars
                 };
                 feedbacks.Add(feedback);
             }
@@ -59,7 +60,8 @@ namespace mRides_server.Logic
                         feedback = u.riderFeedback,
                         givenAs = "driver",
                         givenBy = _context.Users.Find(u.RiderId).ID,
-                        Ride = u.RideId
+                        Ride = u.RideId,
+                        stars=u.riderStars
                     };
                     feedbacks.Add(feedback);
                 }
@@ -69,7 +71,7 @@ namespace mRides_server.Logic
 
         }
 
-        public void leaveReview(int rideid,int reviewerId,int revieweeId, string review)
+        public void leaveReview(int rideid,int reviewerId,int revieweeId, string review,int stars)
         {
             Ride ride=_context.Rides
                         .Include(r => r.UserRides)
@@ -79,11 +81,14 @@ namespace mRides_server.Logic
             {
                 UserRides Ur = ride.UserRides.First(r => r.RiderId == revieweeId);
                 Ur.driverFeedback = review;
+                Ur.driverStars = stars;
                // _context.Rides.Add(ride);
             }
             else 
             {
-                ride.UserRides.First(r => r.RiderId == reviewerId).riderFeedback = review;
+                UserRides Ur =ride.UserRides.First(r => r.RiderId == reviewerId);
+                Ur.riderFeedback = review;
+                Ur.riderStars = stars;
                 //_context.Rides.Add(ride);
             }
             _context.SaveChanges();
