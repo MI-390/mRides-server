@@ -29,9 +29,9 @@ namespace mRides_server.Controllers
         /// This class is used to find a user by user id
         /// </summary>
         [HttpPost]
-        public object getUserByFacebookId([FromHeader]string id)
+        public object getUserByFacebookId([FromBody]string facebookId)
         {
-            long fbId = long.Parse(id);
+            long fbId = long.Parse(facebookId);
             return _context.Users.FirstOrDefault(u=>u.facebookID==fbId);
         }
         [HttpGet("{id}")]
@@ -58,7 +58,7 @@ namespace mRides_server.Controllers
         public void leaveReview([FromHeader]string id,[FromBody]dynamic sentObject )
         {
             int userId = Convert.ToInt32(id);
-            _userCatalog.leaveReview(sentObject.rideId, userId, sentObject.revieewId, sentObject.review, sentObject.star);
+            _userCatalog.leaveReview((int)sentObject.rideId, userId, (int)sentObject.revieweeId, (string)sentObject.review, (int)sentObject.star);
         }
 
         /// <summary>
