@@ -71,10 +71,11 @@ namespace mRides_server.Logic
             _context.SaveChanges();
             return request;
         }
-        public void mergeRiderRequestToRequest(int driverReqId,int riderReqId)
+        public Request mergeRiderRequestToRequest(int driverReqId,int riderReqId)
         {
             Request driverRequest = _context.Requests
                 .Include(r=>r.RiderRequests)
+                    .ThenInclude(rr=>rr.Rider)
                 .First(r=>r.ID==driverReqId);
             Request riderRequest= _context.Requests
                 .Include(r => r.RiderRequests)
@@ -82,6 +83,7 @@ namespace mRides_server.Logic
             driverRequest.RiderRequests.Add(riderRequest.RiderRequests.FirstOrDefault());
             _context.Remove(riderRequest);
             _context.SaveChanges();
+            return driverRequest;
         }
 
         public void deleteRequest(int ID)

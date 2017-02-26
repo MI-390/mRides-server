@@ -34,15 +34,15 @@ namespace mRides_server.Controllers
        [HttpPost]
        public object findRiders([FromHeader]string id,[FromBody]Request request)
        {
-            return _matchingSession.findRiders(Convert.ToInt32(id), request);
+            return _matchingSession.findRiders(Convert.ToInt32(id), request,request.destinationCoordinates);
        }
         [HttpPost]
-        public void confirm([FromHeader]string id, [FromBody]dynamic sentObj)
+        public Request confirm([FromHeader]string id, [FromBody]dynamic sentObj)
         {
             int userId = Convert.ToInt32(id);
             int driverRequestId = sentObj.driverRequestId;
             int riderRequestId = sentObj.riderRequestId;
-            _matchingSession.confirm(userId, driverRequestId,riderRequestId);
+            return _matchingSession.confirm(userId, driverRequestId,riderRequestId);
         }
         [HttpPost]
         public void createRide([FromBody]dynamic sentObject)

@@ -15,6 +15,8 @@ namespace mRides_server.Models
         public Boolean isWeekly { get; set; }
         [NotMapped]
         public string type;
+        [NotMapped]
+        public List<string> destinationCoordinates;
         //public string type;
 
         //1 Driver per Ride

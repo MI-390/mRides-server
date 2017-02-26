@@ -81,11 +81,11 @@ namespace mRides_server.Logic
             
         }
 
-        public void confirm(int id, int driverReqId, int riderReqId)
+        public Request confirm(int id, int driverReqId, int riderReqId)
         {
             //EVENTUALLY WE WILL GET CONFIMRATION FROM BOTH PARTIES
-            _requestCatalog.mergeRiderRequestToRequest(driverReqId, riderReqId);
-
+            return _requestCatalog.mergeRiderRequestToRequest(driverReqId, riderReqId);
+            
         }
 
 
