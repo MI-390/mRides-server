@@ -56,9 +56,10 @@ namespace mRides_server.Logic
                                 if (geoRiderRequestLocation.GetDistanceTo(geoDestinationCoordinate2) <= 1000)
                                 {
                                     filteredRequests.Add(riderRequest);
+                                    break; 
                                 }
-
                             }
+                            break;
             
                         }
                     

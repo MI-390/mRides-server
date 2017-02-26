@@ -51,6 +51,15 @@ namespace mRides_server.Controllers
             //var r = _context.Users.Include(c => c.RidesAsDriver).Single(u=>u.ID==1);
             return user1; 
         }
+        /// <summary>
+        /// Returns all the reviews of a user
+        /// </summary>
+        [HttpPost]
+        public object leaveReview(  )
+        {
+            //return _userCatalog.leaveReview(rideid,revieweeId,revieweeId,review);
+            return null;
+        }
 
         /// <summary>
         /// Returns all the reviews of a user
