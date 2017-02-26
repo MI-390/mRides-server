@@ -23,10 +23,10 @@ namespace mRides_server.Logic
             return Rides;
             
         }
-        public void createNewRide(Ride ride, int userId, string type)
+        public void createNewRide(Ride ride, int userId)
         {
 
-            if (type == "driver")
+            if (ride.type == "driver")
             {
                 ride.Driver = _context.Users.Find(userId);
                 _context.Rides.Add(ride);
@@ -42,6 +42,7 @@ namespace mRides_server.Logic
                 {
                     Ride=ride,
                     Rider = rider
+                    
                 };
                 rider.RidesAsRider.Add(r);
             }

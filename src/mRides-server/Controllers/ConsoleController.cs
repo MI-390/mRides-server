@@ -44,13 +44,13 @@ namespace mRides_server.Controllers
             int riderRequestId = sentObj.riderRequestId;
             return _matchingSession.confirm(userId, driverRequestId,riderRequestId);
         }
-        [HttpPost]
-        public void createRide([FromBody]dynamic sentObject)
-        {
-            //var r = _context.Users.Include(c => c.RidesAsDriver).Single(u=>u.ID==1);
-            Ride ride = sentObject.request.ToObject<Ride>();
-            _rideCatalog.createNewRide(ride, (int)sentObject.userid, (string)sentObject.type);
-        }
+        //[HttpPost]
+        //public void createRide([FromBody]dynamic sentObject)
+        //{
+        //    //var r = _context.Users.Include(c => c.RidesAsDriver).Single(u=>u.ID==1);
+        //    Ride ride = sentObject.request.ToObject<Ride>();
+        //    _rideCatalog.createNewRide(ride, (int)sentObject.userid, (string)sentObject.type);
+        //}
         /// <summary>
         /// Json object:{"rideid":1,"userid":1}
         /// </summary>
