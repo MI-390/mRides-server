@@ -23,8 +23,16 @@ namespace mRides_server.Logic
             return Rides;
             
         }
-        public void createNewRide(Ride ride, int userId)
+
+        public Ride getRide(int rideId)
         {
+            var ride = _context.Rides
+                .Include(r => r.UserRides)
+                .First(r => r.ID == rideId);
+            return ride;
+        }
+        public Ride createNewRide(Ride ride, int userId)
+            {
 
             if (ride.type == "driver")
             {
@@ -41,13 +49,15 @@ namespace mRides_server.Logic
                 UserRides r = new UserRides
                 {
                     Ride=ride,
-                    Rider = rider
-                    
+                    Rider = rider,
+                    location=ride.location,
+                    destinaion=ride.destination
                 };
                 rider.RidesAsRider.Add(r);
             }
             // 
             _context.SaveChanges();
+            return ride;
         }
          public void addRiderToRide(int rideId,int userid)
         {
@@ -60,6 +70,19 @@ namespace mRides_server.Logic
                 Ride = ride
             };
            ride.UserRides.Add(ur);
+            _context.SaveChanges();
+        }
+        public void addDriverToRide(int rideId, int userid)
+        {
+            Ride ride = _context.Rides
+                 .Include(r => r.UserRides)
+                     .First(r => r.ID == rideId);
+            UserRides ur = new UserRides
+            {
+                Rider = _context.Users.Find(userid),
+                Ride = ride
+            };
+            ride.UserRides.Add(ur);
             _context.SaveChanges();
         }
 

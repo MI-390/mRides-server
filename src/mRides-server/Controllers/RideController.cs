@@ -28,11 +28,15 @@ namespace mRides_server.Controllers
 
 
         [HttpPost]
-        public Request createRide([FromBody]Request request,[FromHeader]string id)
+        public Ride createRide([FromBody]Ride ride,[FromHeader]string id)
         { 
-            return _rideCatalog.createNewRide(request, Convert.ToInt32(id));
+            return _rideCatalog.createNewRide(ride, Convert.ToInt32(id));
         }
-
+        [HttpGet("{rideId}")]
+        public object getRide(int rideId)
+        {
+            return _rideCatalog.getRide(rideId);
+        }
 
 
     }
