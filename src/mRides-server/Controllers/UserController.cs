@@ -55,10 +55,10 @@ namespace mRides_server.Controllers
         /// Returns all the reviews of a user
         /// </summary>
         [HttpPost]
-        public object leaveReview(  )
+        public void leaveReview([FromHeader]string id,[FromBody]dynamic sentObject )
         {
-            //return _userCatalog.leaveReview(rideid,revieweeId,revieweeId,review);
-            return null;
+            int userId = Convert.ToInt32(id);
+            _userCatalog.leaveReview(sentObject.rideId, userId, sentObject.revieewId, sentObject.review, sentObject.star);
         }
 
         /// <summary>

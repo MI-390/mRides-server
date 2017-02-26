@@ -59,7 +59,7 @@ namespace mRides_server.Logic
             _context.SaveChanges();
             return ride;
         }
-         public void addRiderToRide(int rideId,int userid)
+         public Ride addRiderToRide(int rideId,int userid)
         {
            Ride ride= _context.Rides
                 .Include(r=>r.UserRides)
@@ -71,6 +71,7 @@ namespace mRides_server.Logic
             };
            ride.UserRides.Add(ur);
             _context.SaveChanges();
+            return ride;
         }
         public void addDriverToRide(int rideId, int userid)
         {
