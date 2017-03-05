@@ -33,10 +33,10 @@ namespace mRides_server.Controllers
             return _rideCatalog.createNewRide(ride, Convert.ToInt32(id));
         }
         [HttpPost]
-        public Ride addRiderToRide([FromBody]int rideId, [FromHeader]string id)
+        public Ride addRiderToRide([FromBody]dynamic sentObject, [FromHeader]string id)
         {
             var userid = Convert.ToInt32(id);
-            return _rideCatalog.addRiderToRide(rideId,userid);
+            return _rideCatalog.addRiderToRide(sentObject.rideId,userid);
         }
         [HttpGet("{rideId}")]
         public object getRide(int rideId)
