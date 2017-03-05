@@ -47,7 +47,7 @@ namespace mRides_server.Controllers
         [HttpPost]
         public object createUser([FromBody]User user1)
         {
-            _userCatalog.createUser(user1);
+            _userCatalog.create(user1);
             //var r = _context.Users.Include(c => c.RidesAsDriver).Single(u=>u.ID==1);
             return user1; 
         }

@@ -8,17 +8,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace mRides_server.Logic
 {
-    public class UserCatalog
+    public class UserCatalog:ICatalog<User>
     {
         ServerContext _context;
         public UserCatalog(ServerContext context)
         {
                 _context = context;
         }
-        public void createUser(User user)
+        public User create(User user)
         {
             _context.Users.Add(user);
             _context.SaveChanges();
+            return user;
         }
         public void updateUser(User user)
         {
