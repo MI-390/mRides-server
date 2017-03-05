@@ -11,10 +11,6 @@ namespace mRides_server.Data
         public static void Initialize(ServerContext context)
         {
             context.Database.EnsureCreated();
-
-
-
-
         }
     }
 }

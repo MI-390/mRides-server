@@ -31,7 +31,7 @@ namespace mRides_server.Controllers
         [HttpPost]
         public Request createRequest([FromBody]Request request,[FromHeader]string id)
         { 
-            return _rideCatalog.createNewRequest(request, Convert.ToInt32(id));
+            return _rideCatalog.create(request, Convert.ToInt32(id));
         }
 
         [HttpDelete("{id}")]

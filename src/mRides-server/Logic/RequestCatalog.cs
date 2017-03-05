@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace mRides_server.Logic
 {
-    public class RequestCatalog
+    public class RequestCatalog:ICatalog<Request>
     {
         List<mRides_server.Models.Request> Requests;
         private ServerContext _context;
@@ -40,7 +40,7 @@ namespace mRides_server.Logic
                  //.Where(s => s.type == "driver")
                  //.ToList();
         }
-        public Request createNewRequest(Request request, int userId)
+        public Request create(Request request, int userId)
         {
             
             if (request.type == "driver")
