@@ -30,7 +30,7 @@ namespace mRides_server.Controllers
         [HttpPost]
         public Ride createRide([FromBody]Ride ride,[FromHeader]string id)
         { 
-            return _rideCatalog.createNewRide(ride, Convert.ToInt32(id));
+            return _rideCatalog.create(ride, Convert.ToInt32(id));
         }
         [HttpPost]
         public Ride addRiderToRide([FromBody]int rideId, [FromHeader]string id)
