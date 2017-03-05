@@ -106,5 +106,10 @@ namespace mRides_server.Logic
             //ICollection<mRides_server.Models.UserRides> ur = ride.UserRides.Where(r=>r.RideId==);
             
         }
+
+        public User create(User obj, int userId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
