@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using Moq;
+using mRides_server.Logic;
+using NUnit.Framework;
 using System;
 
 namespace Tests
@@ -16,6 +18,8 @@ namespace Tests
         [Test]
         public void Test1() 
         {
+            var mokCatalog = new Mock<RideCatalog>();
+            mokCatalog.Setup(c=>c.getRides()).Returns()
             Assert.True(true);
         }
     }

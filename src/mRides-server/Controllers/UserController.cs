@@ -16,12 +16,11 @@ namespace mRides_server.Controllers
 
     public class UserController : Controller
     {
-        private ServerContext _context;
+        
         private UserCatalog _userCatalog;
-        public UserController(ServerContext context)
+        public UserController(ICatalog<User> userCatalog)
         {
-            _context = context;
-            _userCatalog = new UserCatalog(context);
+            _userCatalog = (UserCatalog) userCatalog;
         }
 
 
@@ -31,13 +30,15 @@ namespace mRides_server.Controllers
         [HttpPost]
         public object getUserByFacebookId([FromBody]string facebookId)
         {
-            long fbId = long.Parse(facebookId);
-            return _context.Users.FirstOrDefault(u=>u.facebookID==fbId);
+            //long fbId = long.Parse(facebookId);
+            //return _context.Users.FirstOrDefault(u=>u.facebookID==fbId);
+            return null;
         }
         [HttpGet("{id}")]
         public object getUser(int id)
         {
-            return _context.Users.Find(id);
+            //return _context.Users.Find(id);
+            return null;
         }
 
         /// <summary>
@@ -47,9 +48,10 @@ namespace mRides_server.Controllers
         [HttpPost]
         public object createUser([FromBody]User user1)
         {
-            _userCatalog.create(user1);
-            //var r = _context.Users.Include(c => c.RidesAsDriver).Single(u=>u.ID==1);
-            return user1; 
+            //_userCatalog.create(user1);
+            ////var r = _context.Users.Include(c => c.RidesAsDriver).Single(u=>u.ID==1);
+            //return user1;
+            return null; 
         }
         /// <summary>
         /// Returns all the reviews of a user
