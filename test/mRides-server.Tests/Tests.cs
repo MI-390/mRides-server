@@ -1,11 +1,19 @@
-﻿using System;
-using Xunit;
+﻿using NUnit.Framework;
+using System;
 
 namespace Tests
 {
+    [TestFixture]
     public class Tests
     {
-        [Fact]
+        [SetUp]
+        public void Setup() { }
+
+
+        [TearDown]
+        public void Tear() { }
+
+        [Test]
         public void Test1() 
         {
             Assert.True(true);
