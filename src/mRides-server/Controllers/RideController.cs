@@ -17,12 +17,11 @@ namespace mRides_server.Controllers
     [Route("api/[controller]/[action]")]
     public class RideController : Controller
     {
-        private ServerContext _context;
         private RideCatalog _rideCatalog;
-        public RideController(ServerContext context)
+        public RideController(ICatalog<Ride> rideCatalog)
         {
-            _context = context;
-            _rideCatalog = new RideCatalog(_context);
+            _rideCatalog = (RideCatalog)rideCatalog;
+           
         }
 
 
