@@ -13,7 +13,7 @@ namespace mRides_server.Logic
         ServerContext _context;
         public UserCatalog(ServerContext context)
         {
-                _context = context;
+            _context = context;
         }
         public User create(User user)
         {
