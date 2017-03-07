@@ -26,7 +26,7 @@ namespace mRides_server.Logic
             //_context.Users.Find(userId);
             
         }
-        public object getReviews(int id)
+        public List<object> getReviews(int id)
         {
             List<object> feedbacks = new List<object>();
             User user = _context.Users
