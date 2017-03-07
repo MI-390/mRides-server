@@ -14,8 +14,16 @@ namespace Tests
     [TestFixture]
     public class UserControllerTests    
     {
+        UserCatalog catalog;
         [SetUp]
-        public void Setup() { }
+        public void Setup() {
+            int userId = 1;
+            var mokSet = initializeMokSet();
+
+            var mockContext = new Mock<ServerContext>();
+            mockContext.Setup(c => c.Users).Returns(mokSet.Object);
+            catalog = new UserCatalog(mockContext.Object);
+        }
 
 
         [TearDown]
@@ -24,12 +32,7 @@ namespace Tests
         [Test]
         public void GetReview() 
         {
-            int userId = 1;
-            var mokSet = initializeMokSet();
-
-            var mockContext = new Mock<ServerContext>();
-            mockContext.Setup(c=>c.Users).Returns(mokSet.Object);
-            var catalog = new UserCatalog(mockContext.Object);
+           
             var feedbacks=catalog.getReviews(1);
             foreach(var feedback in feedbacks)
             {
