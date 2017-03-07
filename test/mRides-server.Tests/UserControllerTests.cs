@@ -31,11 +31,15 @@ namespace Tests
             mockContext.Setup(c=>c.Users).Returns(mokSet.Object);
             var catalog = new UserCatalog(mockContext.Object);
             var feedbacks=catalog.getReviews(1);
-            foreach(dynamic feedback in feedbacks)
+            foreach(var feedback in feedbacks)
             {
-                if (feedback.givenAs = "rider")
+                if (feedback.givenAs == "rider")
                 {
-                    Assert.AreEqual(feedback.feedback,"");
+                    Assert.AreEqual(feedback.feedbackText,"Driver 2 to Rider 1");
+                }
+                else if (feedback.givenAs == "driver")
+                {
+                    Assert.AreEqual(feedback.feedbackText,"Rider 4 to Driver 1");
                 }
             }
             
@@ -49,7 +53,7 @@ namespace Tests
                 ID = 1,
                 RidesAsRider = new List<UserRides>
                 {
-                    new UserRides { RideId=1,RiderId=2,driverFeedback="Driver 2 to Rider 1",riderFeedback="Rider 1 to Driver 2"},
+                    new UserRides { RideId=1,RiderId=1,driverFeedback="Driver 2 to Rider 1",riderFeedback="Rider 1 to Driver 2"},
                     //new UserRides { RideId=1,RiderId=3,driverFeedback="User 3 to User 1",riderFeedback="User 1 to User 3"}
 
                 },
@@ -62,6 +66,7 @@ namespace Tests
                 }
 
             });
+            
            
             var users=usersList.AsQueryable();
             var mockSet = new Mock<DbSet<User>>();
