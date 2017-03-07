@@ -22,7 +22,7 @@ namespace Tests
         public void Tear() { }
 
         [Test]
-        public void LeaveAndGetReview() 
+        public void GetReview() 
         {
             int userId = 1;
             var mokSet = initializeMokSet();
