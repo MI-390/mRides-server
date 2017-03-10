@@ -30,9 +30,9 @@ namespace mRides_server.Controllers
         [HttpPost]
         public object getUserByFacebookId([FromBody]string facebookId)
         {
-            //long fbId = long.Parse(facebookId);
-            //return _context.Users.FirstOrDefault(u=>u.facebookID==fbId);
-            return null;
+            long fbId = long.Parse(facebookId);
+            return _userCatalog.getUserByFacebookId(fbId);
+            
         }
         [HttpGet("{id}")]
         public object getUser(int id)

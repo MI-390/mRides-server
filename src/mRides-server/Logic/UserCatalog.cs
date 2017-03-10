@@ -26,7 +26,10 @@ namespace mRides_server.Logic
         {
             return _context.Users.Find(id);
         }
-        
+        public object getUserByFacebookId(long facebookId)
+        {
+            return _context.Users.FirstOrDefault(u=>u.facebookID==facebookId);
+        }
         public void updateUser(User user)
         {
             //_context.Users.Find(userId);
