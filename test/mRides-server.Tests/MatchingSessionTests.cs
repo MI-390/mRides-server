@@ -19,15 +19,35 @@ namespace Tests
         public void Setup()
         {
             var mockRequestCatalog = new Mock<RequestCatalog>();
-            mockRequestCatalog.Setup(uc => uc.getNullDriver()).Returns(sampleNullRequests());
+            //Setting up Request.getNullDriver
+            mockRequestCatalog.Setup(rc => rc.getNullDriver()).Returns(sampleNullRequests());
         }
         public IQueryable sampleNullRequests()
         {
             //Initializing Requests
             var requests = new List<Request>();
-            for(int i = 0; i < 10; i++)
+            for(int i = 1; i <= 10; i++)
             {
-                
+                User user = new User
+                {
+                    ID = i
+                };
+                Request request = new Request
+                {
+                    ID = i,
+                    Driver = null
+                };
+                RiderRequest riderRequest = new RiderRequest
+                {
+                    ID=i,
+                    RiderID=user.ID,
+                    Rider=user,
+                    RequestID=request.ID,
+                    Request=request,
+                    destination=,
+                    location=,                   
+               
+                };
             }
 
 
