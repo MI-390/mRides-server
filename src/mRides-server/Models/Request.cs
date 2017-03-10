@@ -22,8 +22,14 @@ namespace mRides_server.Models
         //1 Driver per Ride
         public int? DriverID { get; set; }
         public User Driver { get; set; }
-        
-        //Many Riders through an association table
+
+        //Might have to change later, to a list of Riders since we can have many riders in 1 ride
+        public int? RiderID { get; set; }
+        public User Rider { get; set; }
+
+        //Many Riders & Drivers through an association table
         public ICollection<RiderRequest> RiderRequests { get; set; }
+        public ICollection<DriverRequest> DriverRequests { get; set; }
+
     }
 }
