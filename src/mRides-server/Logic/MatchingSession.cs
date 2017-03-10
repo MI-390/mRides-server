@@ -27,10 +27,7 @@ namespace mRides_server.Logic
             _requestCatalog.create(request, id);
 
             //riderRequests is a list of requests of riders that are looking for a driver
-            var riderRequests = _context.Requests
-                    .Include(r => r.RiderRequests)
-                        .ThenInclude(rr => rr.Rider)
-                        .Where(r => r.Driver == null);
+            var riderRequests = _requestCatalog.getNullDriver();
             List<Request> filteredRequests = new List<Request>();
 
             foreach (Request riderRequest in riderRequests)

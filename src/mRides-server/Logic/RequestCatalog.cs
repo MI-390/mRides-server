@@ -71,6 +71,14 @@ namespace mRides_server.Logic
             _context.SaveChanges();
             return request;
         }
+        //Return All requests without any driver
+        public IQueryable getNullDriver()
+        {
+            return _context.Requests
+                    .Include(r => r.RiderRequests)
+                        .ThenInclude(rr => rr.Rider)
+                        .Where(r => r.Driver == null);
+        }
         public Request mergeRiderRequestToRequest(int driverReqId,int riderReqId)
         {
             Request driverRequest = _context.Requests

@@ -51,6 +51,7 @@ namespace Tests
         public Mock<DbSet<User>> initializeMokSet()
         {
             var usersList = new List<User>();
+             
             usersList.Add(new User
             {
                 ID = 1,
