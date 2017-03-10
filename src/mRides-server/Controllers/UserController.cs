@@ -37,8 +37,7 @@ namespace mRides_server.Controllers
         [HttpGet("{id}")]
         public object getUser(int id)
         {
-            //return _context.Users.Find(id);
-            return null;
+            return _userCatalog.get(id);
         }
 
         /// <summary>
