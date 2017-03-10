@@ -46,12 +46,10 @@ namespace mRides_server.Controllers
         /// </summary>
         // POST api/values
         [HttpPost]
-        public object createUser([FromBody]User user1)
+        public object createUser([FromBody]User user)
         {
-            //_userCatalog.create(user1);
-            ////var r = _context.Users.Include(c => c.RidesAsDriver).Single(u=>u.ID==1);
-            //return user1;
-            return null; 
+            _userCatalog.create(user);
+            return user; 
         }
         /// <summary>
         /// Returns all the reviews of a user
