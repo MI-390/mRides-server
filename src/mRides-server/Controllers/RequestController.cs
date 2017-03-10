@@ -18,12 +18,12 @@ namespace mRides_server.Controllers
     public class RequestController : Controller
     {
         private ServerContext _context;
-        private RequestCatalog _requestCatalog;
+        private RequestCatalog _rideCatalog;
         private UserCatalog _userCatalog;
         public RequestController(ServerContext context)
         {
             _context = context;
-            _requestCatalog = new RequestCatalog(_context);
+            _rideCatalog = new RequestCatalog(_context);
         }
 
 
@@ -31,14 +31,14 @@ namespace mRides_server.Controllers
         [HttpPost]
         public Request createRequest([FromBody]Request request,[FromHeader]string id)
         { 
-            return _requestCatalog.createNewRequest(request, Convert.ToInt32(id));
+            return _rideCatalog.createNewRequest(request, Convert.ToInt32(id));
         }
 
         [HttpDelete("{id}")]
         public void deleteRequest(int ID)
         {
             
-            _requestCatalog.deleteRequest(ID);
+            _rideCatalog.deleteRequest(ID);
         }
 
 

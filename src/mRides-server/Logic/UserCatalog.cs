@@ -39,14 +39,20 @@ namespace mRides_server.Logic
             ICollection<mRides_server.Models.UserRides> ridesRider = user.RidesAsRider;
             foreach (UserRides u in ridesRider)
             {
-                var feedback = new
+                if(u.driverFeedback!=null)
                 {
-                    feedback = u.driverFeedback,
-                    givenAs = "rider",
-                    givenBy = u.Ride.Driver,
-                    Ride = u.RideId
-                };
-                feedbacks.Add(feedback);
+                    var feedback = new
+                    {
+                        feedback = u.driverFeedback,
+                        givenAs = "rider",
+                        givenBy = u.Ride.Driver,
+                        Ride = u.RideId,
+                        stars = u.driverStars,
+                        time=u.Ride.dateTime
+                    };
+                    feedbacks.Add(feedback);
+                }
+                
             }
 
             ICollection<mRides_server.Models.Ride> ridesAsDriver = user.RidesAsDriver;
@@ -54,14 +60,20 @@ namespace mRides_server.Logic
             {
                 foreach (UserRides u in r.UserRides)
                 {
-                    var feedback = new
+                    if (u.riderFeedback != null)
                     {
-                        feedback = u.riderFeedback,
-                        givenAs = "driver",
-                        givenBy = _context.Users.Find(u.RiderId).ID,
-                        Ride = u.RideId
-                    };
-                    feedbacks.Add(feedback);
+                        var feedback = new
+                        {
+                            feedback = u.riderFeedback,
+                            givenAs = "driver",
+                            givenBy = _context.Users.Find(u.RiderId),
+                            Ride = u.RideId,
+                            stars = u.riderStars,
+                            time = u.Ride.dateTime
+                        };
+                        feedbacks.Add(feedback);
+                    }
+                    
                 }
                 
             }
@@ -69,7 +81,7 @@ namespace mRides_server.Logic
 
         }
 
-        public void leaveReview(int rideid,int reviewerId,int revieweeId, string review)
+        public void leaveReview(int rideid,int reviewerId,int revieweeId, string review,int stars)
         {
             Ride ride=_context.Rides
                         .Include(r => r.UserRides)
@@ -79,11 +91,14 @@ namespace mRides_server.Logic
             {
                 UserRides Ur = ride.UserRides.First(r => r.RiderId == revieweeId);
                 Ur.driverFeedback = review;
+                Ur.driverStars = stars;
                // _context.Rides.Add(ride);
             }
             else 
             {
-                ride.UserRides.First(r => r.RiderId == reviewerId).riderFeedback = review;
+                UserRides Ur =ride.UserRides.First(r => r.RiderId == reviewerId);
+                Ur.riderFeedback = review;
+                Ur.riderStars = stars;
                 //_context.Rides.Add(ride);
             }
             _context.SaveChanges();

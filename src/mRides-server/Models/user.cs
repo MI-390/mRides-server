@@ -18,6 +18,8 @@ namespace mRides_server.Models
         public Boolean isHandicap { get; set; }
         public Boolean hasLuggage { get; set; }
         public long GSD { get; set; }
+        public Boolean hasPet { get; set; }
+        public string genderPreference { get; set; }
 
         //Rides as Driver
         public ICollection<Ride> RidesAsDriver { get; set; }
