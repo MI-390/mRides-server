@@ -17,12 +17,11 @@ namespace mRides_server.Controllers
     [Route("api/[controller]/[action]")]
     public class RideController : Controller
     {
-        private ServerContext _context;
         private RideCatalog _rideCatalog;
-        public RideController(ServerContext context)
+        public RideController(ICatalog<Ride> rideCatalog)
         {
-            _context = context;
-            _rideCatalog = new RideCatalog(_context);
+            _rideCatalog = (RideCatalog)rideCatalog;
+           
         }
 
 
@@ -30,13 +29,14 @@ namespace mRides_server.Controllers
         [HttpPost]
         public Ride createRide([FromBody]Ride ride,[FromHeader]string id)
         { 
-            return _rideCatalog.createNewRide(ride, Convert.ToInt32(id));
+            return _rideCatalog.create(ride, Convert.ToInt32(id));
         }
         [HttpPost]
-        public Ride addRiderToRide([FromBody]int rideId, [FromHeader]string id)
+        public Ride addRiderToRide([FromBody]dynamic sentObject, [FromHeader]string id)
         {
             var userid = Convert.ToInt32(id);
-            return _rideCatalog.addRiderToRide(rideId,userid);
+            int rideId = sentObject.rideId;
+            return _rideCatalog.addRiderToRide(rideId, userid);
         }
         [HttpGet("{rideId}")]
         public object getRide(int rideId)

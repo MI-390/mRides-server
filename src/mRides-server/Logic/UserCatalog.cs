@@ -8,26 +8,36 @@ using Microsoft.EntityFrameworkCore;
 
 namespace mRides_server.Logic
 {
-    public class UserCatalog
+   
+    public class UserCatalog:ICatalog<User>
     {
         ServerContext _context;
         public UserCatalog(ServerContext context)
         {
-                _context = context;
+            _context = context;
         }
-        public void createUser(User user)
+        public User create(User user)
         {
             _context.Users.Add(user);
             _context.SaveChanges();
+            return user;
+        }
+        public User get(int id)
+        {
+            return _context.Users.Find(id);
+        }
+        public object getUserByFacebookId(long facebookId)
+        {
+            return _context.Users.FirstOrDefault(u=>u.facebookID==facebookId);
         }
         public void updateUser(User user)
         {
             //_context.Users.Find(userId);
             
         }
-        public object getReviews(int id)
+        public List<Feedback> getReviews(int id)
         {
-            List<object> feedbacks = new List<object>();
+            List<Feedback> feedbacks = new List<Feedback>();
             User user = _context.Users
                         .Include(u => u.RidesAsRider)
                             .ThenInclude(Ur => Ur.Ride)
@@ -41,14 +51,14 @@ namespace mRides_server.Logic
             {
                 if(u.driverFeedback!=null)
                 {
-                    var feedback = new
+                    var feedback = new Feedback
                     {
-                        feedback = u.driverFeedback,
+                        feedbackText = u.driverFeedback,
                         givenAs = "rider",
-                        givenBy = u.Ride.Driver,
+                        givenBy = u.Ride?.Driver,
                         Ride = u.RideId,
                         stars = u.driverStars,
-                        time=u.Ride.dateTime
+                        time= (u.Ride?.dateTime == null) ? new DateTime() : u.Ride.dateTime
                     };
                     feedbacks.Add(feedback);
                 }
@@ -62,14 +72,14 @@ namespace mRides_server.Logic
                 {
                     if (u.riderFeedback != null)
                     {
-                        var feedback = new
+                        var feedback = new Feedback
                         {
-                            feedback = u.riderFeedback,
+                            feedbackText = u.riderFeedback,
                             givenAs = "driver",
-                            givenBy = _context.Users.Find(u.RiderId),
+                            givenBy = _context.Users.FirstOrDefault(us=>us.ID==u.RiderId),
                             Ride = u.RideId,
                             stars = u.riderStars,
-                            time = u.Ride.dateTime
+                            time = (u.Ride?.dateTime==null)?new DateTime():u.Ride.dateTime
                         };
                         feedbacks.Add(feedback);
                     }
@@ -104,6 +114,11 @@ namespace mRides_server.Logic
             _context.SaveChanges();
             //ICollection<mRides_server.Models.UserRides> ur = ride.UserRides.Where(r=>r.RideId==);
             
+        }
+
+        public User create(User obj, int userId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

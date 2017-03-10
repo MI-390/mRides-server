@@ -24,7 +24,7 @@ namespace mRides_server.Logic
         public object findRiders(int id, Request request, List<string> destinationCoordinates)
         {
             //Create new driver request
-            _requestCatalog.createNewRequest(request, id);
+            _requestCatalog.create(request, id);
 
             //riderRequests is a list of requests of riders that are looking for a driver
             var riderRequests = _context.Requests

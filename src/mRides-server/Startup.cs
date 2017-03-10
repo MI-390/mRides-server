@@ -14,6 +14,7 @@ using mRides_server.Logic;
 using Swashbuckle.AspNetCore.Swagger;
 using System.IO;
 using Microsoft.Extensions.PlatformAbstractions;
+using mRides_server.Models;
 
 namespace mRides_server
 {
@@ -42,6 +43,10 @@ namespace mRides_server
             
             services.AddDbContext<ServerContext>(options =>
                 options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddSingleton<ICatalog<Request>, RequestCatalog>();
+            services.AddSingleton<ICatalog<User>, UserCatalog>();
+            services.AddSingleton<ICatalog<Ride>, RideCatalog>();
+
             services.AddSwaggerGen();
             services.ConfigureSwaggerGen(options =>
             {

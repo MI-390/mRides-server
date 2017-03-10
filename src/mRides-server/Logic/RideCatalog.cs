@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace mRides_server.Logic
 {
-    public class RideCatalog
+    public class RideCatalog:ICatalog<Ride>
     {
         List<mRides_server.Models.Ride> Rides;
         private ServerContext _context;
@@ -31,7 +31,7 @@ namespace mRides_server.Logic
                 .First(r => r.ID == rideId);
             return ride;
         }
-        public Ride createNewRide(Ride ride, int userId)
+        public Ride create(Ride ride, int userId)
             {
 
             if (ride.type == "driver")
