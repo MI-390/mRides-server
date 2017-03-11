@@ -19,10 +19,11 @@ namespace mRides_server.Controllers
         private ServerContext _context;
         private MatchingSession _matchingSession;
         private RideCatalog _rideCatalog;
+        private RequestCatalog _requestCatalog;
         public ConsoleController(ServerContext context)
         {
             _context = context;
-            _matchingSession = new MatchingSession(context);
+            _matchingSession = new MatchingSession(_requestCatalog);
             _rideCatalog = new RideCatalog(context);
         }
 

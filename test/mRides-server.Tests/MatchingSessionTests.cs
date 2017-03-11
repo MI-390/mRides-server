@@ -15,10 +15,12 @@ namespace Tests
     public class MatchingSessionTests
     {
         UserCatalog catalog;
+        Mock<RequestCatalog> mockRequestCatalog;
+        MatchingSession matchingSession = new MatchingSession();
         [SetUp]
         public void Setup()
         {
-            var mockRequestCatalog = new Mock<RequestCatalog>();
+            mockRequestCatalog = new Mock<RequestCatalog>();
             //Setting up Request.getNullDriver
             mockRequestCatalog.Setup(rc => rc.getNullDriver()).Returns(sampleNullRequests());
         }
@@ -74,8 +76,7 @@ namespace Tests
         [Test]
         public void findRiders()
         {
-            var mockRequestCatalog = new Mock<RequestCatalog>();
-            mockRequestCatalog.Setup(rc => rc.getNullDriver()).returns();
+            
         }
     }
        

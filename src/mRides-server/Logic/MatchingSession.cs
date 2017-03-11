@@ -12,14 +12,12 @@ namespace mRides_server.Logic
     public class MatchingSession
     {
 
-        ServerContext _context;
+       
         RequestCatalog _requestCatalog;
 
-        public MatchingSession(ServerContext context)
+        public MatchingSession(RequestCatalog requestCatalog)
         {
-            _context = context;
-            _requestCatalog = new RequestCatalog(_context);
-        }
+            _requestCatalog = requestCatalog;
 
         public object findRiders(int id, Request request, List<string> destinationCoordinates)
         {
