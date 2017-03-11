@@ -26,28 +26,42 @@ namespace Tests
         {
             //Initializing Requests
             var requests = new List<Request>();
-            for(int i = 1; i <= 10; i++)
+            string[,] coordinates = new string[2, 2]
             {
+                {"45.443246,-73.644613","45.452562,-73.625714"},
+                {"45.443246,-73.644613","45.479196,-73.619449" }
+            };
+
+            for (int i = 0; i < 2; i++)
+            {
+                //Initialize user
                 User user = new User
                 {
                     ID = i
                 };
+                //Initialize Request
                 Request request = new Request
                 {
                     ID = i,
                     Driver = null
                 };
-                RiderRequest riderRequest = new RiderRequest
-                {
-                    ID=i,
-                    RiderID=user.ID,
-                    Rider=user,
-                    RequestID=request.ID,
-                    Request=request,
-                    destination=,
-                    location=,                   
-               
+                //Initialize RiderRequest Collection
+                //All the requests with null driver will have a single RiderRequest
+                List<RiderRequest> riderRequests = new List<RiderRequest>() {
+                    new RiderRequest()
+                    {
+                        ID=i,
+                        RiderID=user.ID,
+                        Rider=user,
+                        RequestID=request.ID,
+                        Request=request,
+                        destination= coordinates[i,0],
+                        location= coordinates[i, 1],
+                    }
                 };
+                
+                request.RiderRequests = riderRequests;
+
             }
 
 
@@ -60,7 +74,8 @@ namespace Tests
         [Test]
         public void findRiders()
         {
-
+            var mockRequestCatalog = new Mock<RequestCatalog>();
+            mockRequestCatalog.Setup(rc => rc.getNullDriver()).returns();
         }
     }
        
