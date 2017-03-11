@@ -16,13 +16,14 @@ namespace Tests
     {
         UserCatalog catalog;
         Mock<RequestCatalog> mockRequestCatalog;
-        MatchingSession matchingSession = new MatchingSession();
+        MatchingSession matchingSession;
         [SetUp]
         public void Setup()
         {
             mockRequestCatalog = new Mock<RequestCatalog>();
             //Setting up Request.getNullDriver
             mockRequestCatalog.Setup(rc => rc.getNullDriver()).Returns(sampleNullRequests());
+            matchingSession = new MatchingSession(mockRequestCatalog.Object);
         }
         public IQueryable sampleNullRequests()
         {
@@ -76,7 +77,8 @@ namespace Tests
         [Test]
         public void findRiders()
         {
-            
+            Request request;
+            matchingSession.findRiders(3,request);
         }
     }
        

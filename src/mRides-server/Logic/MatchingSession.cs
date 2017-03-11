@@ -18,12 +18,13 @@ namespace mRides_server.Logic
         public MatchingSession(RequestCatalog requestCatalog)
         {
             _requestCatalog = requestCatalog;
+        }
 
-        public object findRiders(int id, Request request, List<string> destinationCoordinates)
+        public object findRiders(int id, Request request)
         {
             //Create new driver request
             _requestCatalog.create(request, id);
-
+            List<string> destinationCoordinates = request.destinationCoordinates;
             //riderRequests is a list of requests of riders that are looking for a driver
             var riderRequests = _requestCatalog.getNullDriver();
             List<Request> filteredRequests = new List<Request>();

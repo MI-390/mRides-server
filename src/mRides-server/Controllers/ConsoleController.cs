@@ -36,7 +36,7 @@ namespace mRides_server.Controllers
         [HttpPost]
        public object findRiders([FromHeader]string id,[FromBody]Request request)
        {
-            return _matchingSession.findRiders(Convert.ToInt32(id), request,request.destinationCoordinates);
+            return _matchingSession.findRiders(Convert.ToInt32(id), request);
        }
         [HttpPost]
         public Request confirm([FromHeader]string id, [FromBody]dynamic sentObj)
