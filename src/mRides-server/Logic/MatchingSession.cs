@@ -9,6 +9,11 @@ using System.Threading.Tasks;
 
 namespace mRides_server.Logic
 {
+    public class MatchingSessionResponse
+    {
+        public List<Request> Requests { get; set; }
+        public int driverRequestID { get; set; }
+    }
     public class MatchingSession
     {
 
@@ -20,7 +25,7 @@ namespace mRides_server.Logic
             _requestCatalog = requestCatalog;
         }
 
-        public object findRiders(int id, Request request)
+        public MatchingSessionResponse findRiders(int id, Request request)
         {
             //Create new driver request
             _requestCatalog.create(request, id);
@@ -60,7 +65,7 @@ namespace mRides_server.Logic
                 }
             }
 
-            var response = new
+            MatchingSessionResponse response = new MatchingSessionResponse
             {
                 Requests = filteredRequests,
                 driverRequestID = request.ID

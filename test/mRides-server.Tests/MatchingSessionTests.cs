@@ -12,11 +12,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 namespace Tests
 {
-    public class sentObjects
-    {
-        public List<Request> Requests { get; set; }
-        public int driverRequestID { get; set; }
-    }
+    
     [TestFixture]
     public class MatchingSessionTests
     {
@@ -95,7 +91,7 @@ namespace Tests
                 destination = "45.452715,-73.625920",
             };
 
-            sentObjects sO =(sentObjects) matchingSession.findRiders(3,request1AvToAng);
+            MatchingSessionResponse sO =matchingSession.findRiders(3,request1AvToAng);
             Assert.AreEqual(0,sO.Requests.First().ID);
         }
      }
