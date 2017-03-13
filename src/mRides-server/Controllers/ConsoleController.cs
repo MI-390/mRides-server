@@ -49,7 +49,7 @@ namespace mRides_server.Controllers
         [HttpPost]
         public Boolean registerFcmToken([FromHeader]string id,[FromBody]dynamic sentObj)
         {
-
+            return true;
         }
 
         //[HttpPost]
