@@ -30,6 +30,15 @@ namespace mRides_server.Logic
         {
             return _context.Users.FirstOrDefault(u=>u.facebookID==facebookId);
         }
+        public Boolean updateFcmToken(int id,string fcmToken)
+        {
+            var user=_context.Users.FirstOrDefault(u=>u.ID==id);
+            user.fcmToken = fcmToken;
+            _context.SaveChanges();
+            if(user!=null && user.fcmToken==fcmToken)
+                return true;
+            return false;
+        }
         public void updateUser(User user)
         {
             //_context.Users.Find(userId);
