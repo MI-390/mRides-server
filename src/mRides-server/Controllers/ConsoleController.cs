@@ -46,11 +46,7 @@ namespace mRides_server.Controllers
             int riderRequestId = sentObj.riderRequestId;
             return _matchingSession.confirm(userId, driverRequestId,riderRequestId);
         }
-        [HttpPost]
-        public Boolean registerFcmToken([FromHeader]string id,[FromBody]dynamic sentObj)
-        {
-            return true;
-        }
+        
 
         //[HttpPost]
         //public void createRide([FromBody]dynamic sentObject)
