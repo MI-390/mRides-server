@@ -40,9 +40,10 @@ namespace mRides_server.Controllers
             return _userCatalog.get(id);
         }
         [HttpPost]
-        public Boolean registerFcmToken([FromHeader]string id, [FromBody]dynamic sentObj)
+        public Boolean updateFcmToken([FromHeader]string id, [FromBody]dynamic sentObj)
         {
-            int userid = Convert.ToInt32(id);
+            int userId = Convert.ToInt32(id);
+           return _userCatalog.updateFcmToken(userId, sentObj.fcmToken);
 
         }
         /// <summary>
