@@ -41,7 +41,10 @@ namespace mRides_server.Logic
 
             //Get the user with id
             var user=_context.Users.FirstOrDefault(u=>u.ID==id);
-            user.fcmToken = fcmToken;
+            if (user != null)
+            {
+                user.fcmToken = fcmToken;
+            }
             _context.SaveChanges();
             if(user!=null && user.fcmToken==fcmToken)
                 return true;
