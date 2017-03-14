@@ -32,6 +32,14 @@ namespace mRides_server.Logic
         }
         public Boolean updateFcmToken(int id,string fcmToken)
         {
+            //Delete if a fcmToken Already exists
+            var existingFcmTokenUsers = _context.Users.Where(u => u.fcmToken == fcmToken);
+            foreach(User u in existingFcmTokenUsers)
+            {
+                u.fcmToken = null;
+            }
+
+            //Get the user with id
             var user=_context.Users.FirstOrDefault(u=>u.ID==id);
             user.fcmToken = fcmToken;
             _context.SaveChanges();
