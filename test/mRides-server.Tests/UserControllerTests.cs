@@ -3,6 +3,7 @@ using Moq;
 using mRides_server.Data;
 using mRides_server.Logic;
 using mRides_server.Models;
+using mRides_server.Controllers;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -25,14 +26,12 @@ namespace Tests
             catalog = new UserCatalog(mockContext.Object);
         }
 
-
         [TearDown]
         public void Tear() { }
 
         [Test]
         public void GetReview() 
         {
-           
             var feedbacks=catalog.getReviews(1);
             foreach(var feedback in feedbacks)
             {
@@ -44,8 +43,31 @@ namespace Tests
                 {
                     Assert.AreEqual(feedback.feedbackText,"Rider 4 to Driver 1");
                 }
-            }
-            
+            } 
+        }
+
+        /*
+         * Not run yet 
+         */ 
+        [Test]
+        public void GetGSDTest()
+        {
+            UserController uc = new UserController(catalog);
+            User u = new User();
+            u.ID = 1;
+            u.GSD = 500;
+            catalog.create(u);
+
+            Assert.AreEqual(uc.getGSD(1), 500);
+        }
+
+        /*
+         * Not run yet
+         */
+        [Test]
+        public void SetGSDTest()
+        {
+
         }
 
         public Mock<DbSet<User>> initializeMokSet()
