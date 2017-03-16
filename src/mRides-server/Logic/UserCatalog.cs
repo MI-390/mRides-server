@@ -122,9 +122,9 @@ namespace mRides_server.Logic
             throw new NotImplementedException();
         }
 
-        public void setGSD(User user, long amountGSD)
+        public void setGSD(int userId, long amountGSD)
         {
-            user.GSD = amountGSD;
+            _context.Users.Find(userId).GSD = amountGSD;
             _context.SaveChanges();
         }
 
