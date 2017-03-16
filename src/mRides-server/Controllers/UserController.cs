@@ -86,10 +86,10 @@ namespace mRides_server.Controllers
         /// </summary>
         // POST api/values
         [HttpPost]
-        public void setGSD([FromHeader]int userId, [FromHeader]long amountGSD)
+        public long setGSD([FromHeader]int userId, [FromHeader]long amountGSD)
         {
-            User u = _userCatalog.get(userId);
-            u.GSD = amountGSD;
+            _userCatalog.get(userId).GSD = amountGSD;
+            return _userCatalog.get(userId).GSD;
         }
 
     }
