@@ -8,33 +8,38 @@ using Microsoft.EntityFrameworkCore;
 
 namespace mRides_server.Logic
 {
-   
-    public class UserCatalog:ICatalog<User>
+
+    public class UserCatalog : ICatalog<User>
     {
         ServerContext _context;
+
         public UserCatalog(ServerContext context)
         {
             _context = context;
         }
+
         public User create(User user)
         {
             _context.Users.Add(user);
             _context.SaveChanges();
             return user;
         }
+
         public User get(int id)
         {
             return _context.Users.Find(id);
         }
+
         public object getUserByFacebookId(long facebookId)
         {
-            return _context.Users.FirstOrDefault(u=>u.facebookID==facebookId);
+            return _context.Users.FirstOrDefault(u => u.facebookID == facebookId);
         }
+
         public void updateUser(User user)
         {
             //_context.Users.Find(userId);
-            
         }
+
         public List<Feedback> getReviews(int id)
         {
             List<Feedback> feedbacks = new List<Feedback>();
@@ -43,13 +48,13 @@ namespace mRides_server.Logic
                             .ThenInclude(Ur => Ur.Ride)
                             .ThenInclude(r => r.Driver)
                         .Include(u => u.RidesAsDriver)
-                            .ThenInclude(r=>r.UserRides)
+                            .ThenInclude(r => r.UserRides)
                         .First(u => id == u.ID);
             //Adding feedback as riders(given by a driver)
             ICollection<mRides_server.Models.UserRides> ridesRider = user.RidesAsRider;
             foreach (UserRides u in ridesRider)
             {
-                if(u.driverFeedback!=null)
+                if (u.driverFeedback != null)
                 {
                     var feedback = new Feedback
                     {
@@ -58,15 +63,15 @@ namespace mRides_server.Logic
                         givenBy = u.Ride?.Driver,
                         Ride = u.RideId,
                         stars = u.driverStars,
-                        time= (u.Ride?.dateTime == null) ? new DateTime() : u.Ride.dateTime
+                        time = (u.Ride?.dateTime == null) ? new DateTime() : u.Ride.dateTime
                     };
                     feedbacks.Add(feedback);
                 }
-                
+
             }
 
             ICollection<mRides_server.Models.Ride> ridesAsDriver = user.RidesAsDriver;
-            foreach(Ride r in ridesAsDriver)
+            foreach (Ride r in ridesAsDriver)
             {
                 foreach (UserRides u in r.UserRides)
                 {
@@ -76,49 +81,51 @@ namespace mRides_server.Logic
                         {
                             feedbackText = u.riderFeedback,
                             givenAs = "driver",
-                            givenBy = _context.Users.FirstOrDefault(us=>us.ID==u.RiderId),
+                            givenBy = _context.Users.FirstOrDefault(us => us.ID == u.RiderId),
                             Ride = u.RideId,
                             stars = u.riderStars,
-                            time = (u.Ride?.dateTime==null)?new DateTime():u.Ride.dateTime
+                            time = (u.Ride?.dateTime == null) ? new DateTime() : u.Ride.dateTime
                         };
                         feedbacks.Add(feedback);
                     }
-                    
                 }
-                
             }
             return feedbacks;
-
         }
 
-        public void leaveReview(int rideid,int reviewerId,int revieweeId, string review,int stars)
+        public void leaveReview(int rideid, int reviewerId, int revieweeId, string review, int stars)
         {
-            Ride ride=_context.Rides
+            Ride ride = _context.Rides
                         .Include(r => r.UserRides)
                         .First(r => r.ID == rideid);
             //If driver is leaving a review for a rider
-            if(reviewerId == ride.DriverID)
+            if (reviewerId == ride.DriverID)
             {
                 UserRides Ur = ride.UserRides.First(r => r.RiderId == revieweeId);
                 Ur.driverFeedback = review;
                 Ur.driverStars = stars;
-               // _context.Rides.Add(ride);
+                // _context.Rides.Add(ride);
             }
-            else 
+            else
             {
-                UserRides Ur =ride.UserRides.First(r => r.RiderId == reviewerId);
+                UserRides Ur = ride.UserRides.First(r => r.RiderId == reviewerId);
                 Ur.riderFeedback = review;
                 Ur.riderStars = stars;
                 //_context.Rides.Add(ride);
             }
             _context.SaveChanges();
             //ICollection<mRides_server.Models.UserRides> ur = ride.UserRides.Where(r=>r.RideId==);
-            
         }
 
         public User create(User obj, int userId)
         {
             throw new NotImplementedException();
         }
+
+        public void setGSD(User user, long amountGSD)
+        {
+            user.GSD = amountGSD;
+        }
+
     }
 }

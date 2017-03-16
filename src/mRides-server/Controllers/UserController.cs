@@ -88,7 +88,8 @@ namespace mRides_server.Controllers
         [HttpPost]
         public long setGSD([FromHeader]int userId, [FromHeader]long amountGSD)
         {
-            _userCatalog.get(userId).GSD = amountGSD;
+            User u = _userCatalog.get(userId);
+            _userCatalog.setGSD(u, amountGSD);
             return _userCatalog.get(userId).GSD;
         }
 
