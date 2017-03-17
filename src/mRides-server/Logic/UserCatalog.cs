@@ -124,7 +124,8 @@ namespace mRides_server.Logic
 
         public void setGSD(int userId, long amountGSD)
         {
-            _context.Users.Find(userId).GSD = amountGSD;
+            User u = _context.Users.Find(userId);
+            u.GSD = amountGSD;
             _context.SaveChanges();
         }
 

@@ -86,11 +86,13 @@ namespace mRides_server.Controllers
         /// </summary>
         // POST api/values
         [HttpPost]
-        public long setGSD([FromHeader]int userId, [FromHeader]long amountGSD)
+        public long setGSD([FromHeader]string userId, [FromHeader]string amountGSD)
         {
-            User u = _userCatalog.get(userId);
-            _userCatalog.setGSD(u, amountGSD);
-            return _userCatalog.get(userId).GSD;
+            int newUserId = Convert.ToInt32(userId);
+            long newAmountGSD = long.Parse(amountGSD);
+            //User u = _userCatalog.get(userId);
+            _userCatalog.setGSD(newUserId, newAmountGSD);
+            return _userCatalog.get(newUserId).GSD;
         }
 
     }
