@@ -52,13 +52,12 @@ namespace Tests
         [Test]
         public void GetGSDTest()
         {
-            UserController uc = new UserController(catalog);
             User u = new User();
             u.ID = 1;
             u.GSD = 500;
             catalog.create(u);
 
-            Assert.AreEqual(uc.getGSD(1), 500);
+            Assert.AreEqual(catalog.getGSD(1), 500);
         }
 
         /*

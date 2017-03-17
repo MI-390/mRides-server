@@ -129,5 +129,11 @@ namespace mRides_server.Logic
             _context.SaveChanges();
         }
 
+        public long getGSD(int userId)
+        {
+           User u = _context.Users.Find(userId);
+            return u.GSD;
+        }
+
     }
 }
