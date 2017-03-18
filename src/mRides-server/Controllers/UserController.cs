@@ -83,9 +83,9 @@ namespace mRides_server.Controllers
         /// Returns the GSD of the user with the corresponding id
         /// </summary>
         [HttpGet("{userId}")]
-        public long getGSD(int userId)
+        public long getGSD(int id)
         {
-            return _userCatalog.get(userId).GSD;
+            return _userCatalog.get(id).GSD;
         }
 
         /// <summary>
