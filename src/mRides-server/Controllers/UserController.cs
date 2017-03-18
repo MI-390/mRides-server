@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Dynamic;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -92,11 +93,11 @@ namespace mRides_server.Controllers
         /// </summary>
         // POST api/values
         [HttpPost]
-        public long setGSD([FromHeader]string userId, [FromHeader]string amountGSD)
+        public long setGSD([FromHeader]string id, [FromBody]dynamic sentObject)
         {
-            int newUserId = Convert.ToInt32(userId);
-            long newAmountGSD = long.Parse(amountGSD);
-            //User u = _userCatalog.get(userId);
+            int newUserId = Convert.ToInt32(id);
+            //long newAmountGSD = long.Parse(sentObject.amountGSD);
+            int newAmountGSD = sentObject.amountGSD;
             _userCatalog.setGSD(newUserId, newAmountGSD);
             return _userCatalog.get(newUserId).GSD;
         }
