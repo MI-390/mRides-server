@@ -19,10 +19,12 @@ namespace mRides_server.Logic
 
        
         RequestCatalog _requestCatalog;
+        UserCatalog _userCatalog;
 
-        public MatchingSession(RequestCatalog requestCatalog)
+        public MatchingSession(RequestCatalog requestCatalog, UserCatalog userCatalog)
         {
             _requestCatalog = requestCatalog;
+            _userCatalog = userCatalog;
         }
 
         public MatchingSessionResponse findRiders(int id, Request request)
@@ -133,7 +135,12 @@ namespace mRides_server.Logic
             //EVENTUALLY WE WILL GET CONFIMRATION FROM BOTH PARTIES
             return _requestCatalog.mergeRiderRequestToRequest(driverReqId, riderReqId);
         }
-
+        public List<Request> filterByPreferences(List<Request> requests,int id)
+        {
+            _
+            requests.Where(r=>
+                r.Driver.genderPreference==_user)
+        }
     }
 
 }
