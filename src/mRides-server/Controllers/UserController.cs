@@ -35,7 +35,7 @@ namespace mRides_server.Controllers
             
         }
         [HttpGet("{id}")]
-        public object getUser(int id)
+        public virtual object getUser(int id)
         {
             return _userCatalog.get(id);
         }

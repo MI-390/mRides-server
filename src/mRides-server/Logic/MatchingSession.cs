@@ -135,16 +135,15 @@ namespace mRides_server.Logic
             //EVENTUALLY WE WILL GET CONFIMRATION FROM BOTH PARTIES
             return _requestCatalog.mergeRiderRequestToRequest(driverReqId, riderReqId);
         }
-        public List<Request> filterByPreferences(List<Request> requests,int id)
+        public List<Request> filterByPreferences(IQueryable<Request> requests,int id)
         {
             var user = _userCatalog.get(id);
             return requests.Where(r =>
-                r.Driver.genderPreference == user.genderPreference &&
-                r.Driver.hasLuggage==user.hasLuggage &&
-                r.Driver.isHandicap==user.isHandicap &&
-                r.Driver.hasLuggage==user.hasLuggage &&
-                r.Driver.hasPet==user.hasPet &&
-                r.Driver.isSmoker==user.isSmoker
+                r.RiderRequests.First().Rider.genderPreference == user.genderPreference &&
+                r.RiderRequests.First().Rider.hasLuggage ==user.hasLuggage &&
+                r.RiderRequests.First().Rider.isHandicap ==user.isHandicap &&
+                r.RiderRequests.First().Rider.hasPet ==user.hasPet &&
+                r.RiderRequests.First().Rider.isSmoker ==user.isSmoker
                 ).ToList();
         }
     }

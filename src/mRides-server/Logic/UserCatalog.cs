@@ -12,6 +12,10 @@ namespace mRides_server.Logic
     public class UserCatalog:ICatalog<User>
     {
         ServerContext _context;
+        public UserCatalog()
+        {
+
+        }
         public UserCatalog(ServerContext context)
         {
             _context = context;
@@ -22,7 +26,7 @@ namespace mRides_server.Logic
             _context.SaveChanges();
             return user;
         }
-        public User get(int id)
+        public virtual User get(int id)
         {
             return _context.Users.Find(id);
         }
