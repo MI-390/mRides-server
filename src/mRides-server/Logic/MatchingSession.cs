@@ -138,15 +138,14 @@ namespace mRides_server.Logic
         public List<Request> filterByPreferences(List<Request> requests,int id)
         {
             var user = _userCatalog.get(id);
-            requests.Where(r =>
+            return requests.Where(r =>
                 r.Driver.genderPreference == user.genderPreference &&
                 r.Driver.hasLuggage==user.hasLuggage &&
                 r.Driver.isHandicap==user.isHandicap &&
                 r.Driver.hasLuggage==user.hasLuggage &&
                 r.Driver.hasPet==user.hasPet &&
                 r.Driver.isSmoker==user.isSmoker
-
-                );
+                ).ToList();
         }
     }
 
