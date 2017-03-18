@@ -12,7 +12,10 @@ namespace mRides_server.Logic
     {
         List<mRides_server.Models.Request> Requests;
         private ServerContext _context;
+        public RequestCatalog()
+        {
 
+        }
         public RequestCatalog(ServerContext context)
         {
             _context = context;
@@ -40,7 +43,7 @@ namespace mRides_server.Logic
                  //.Where(s => s.type == "driver")
                  //.ToList();
         }
-        public Request create(Request request, int userId)
+        public virtual Request create(Request request, int userId)
         {
             
             if (request.type == "driver")
@@ -72,7 +75,7 @@ namespace mRides_server.Logic
             return request;
         }
         //Return All requests without any driver
-        public IQueryable getNullDriver()
+        public virtual IQueryable getNullDriver()
         {
             return _context.Requests
                     .Include(r => r.RiderRequests)

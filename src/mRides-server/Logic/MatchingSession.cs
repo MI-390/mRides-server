@@ -9,23 +9,27 @@ using System.Threading.Tasks;
 
 namespace mRides_server.Logic
 {
+    public class MatchingSessionResponse
+    {
+        public List<Request> Requests { get; set; }
+        public int driverRequestID { get; set; }
+    }
     public class MatchingSession
     {
 
-        ServerContext _context;
+       
         RequestCatalog _requestCatalog;
 
-        public MatchingSession(ServerContext context)
+        public MatchingSession(RequestCatalog requestCatalog)
         {
-            _context = context;
-            _requestCatalog = new RequestCatalog(_context);
+            _requestCatalog = requestCatalog;
         }
 
-        public object findRiders(int id, Request request, List<string> destinationCoordinates)
+        public MatchingSessionResponse findRiders(int id, Request request)
         {
             //Create new driver request
             _requestCatalog.create(request, id);
-
+            List<string> destinationCoordinates = request.destinationCoordinates;
             //riderRequests is a list of requests of riders that are looking for a driver
             var riderRequests = _requestCatalog.getNullDriver();
             List<Request> filteredRequests = new List<Request>();
@@ -61,7 +65,7 @@ namespace mRides_server.Logic
                 }
             }
 
-            var response = new
+            MatchingSessionResponse response = new MatchingSessionResponse
             {
                 Requests = filteredRequests,
                 driverRequestID = request.ID

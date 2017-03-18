@@ -41,7 +41,13 @@ namespace mRides_server.Controllers
         {
             return _userCatalog.get(id);
         }
+        [HttpPost]
+        public Boolean updateFcmToken([FromHeader]string id, [FromBody]dynamic sentObj)
+        {
+            int userId = Convert.ToInt32(id);
+           return _userCatalog.updateFcmToken(userId, (string)sentObj.fcmToken);
 
+        }
         /// <summary>
         /// This class is used as an api for the search requests.
         /// </summary>

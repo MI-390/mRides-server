@@ -19,10 +19,11 @@ namespace mRides_server.Controllers
         private ServerContext _context;
         private MatchingSession _matchingSession;
         private RideCatalog _rideCatalog;
+        private RequestCatalog _requestCatalog;
         public ConsoleController(ServerContext context)
         {
             _context = context;
-            _matchingSession = new MatchingSession(context);
+            _matchingSession = new MatchingSession(_requestCatalog);
             _rideCatalog = new RideCatalog(context);
         }
 
@@ -35,7 +36,7 @@ namespace mRides_server.Controllers
         [HttpPost]
        public object findRiders([FromHeader]string id,[FromBody]Request request)
        {
-            return _matchingSession.findRiders(Convert.ToInt32(id), request,request.destinationCoordinates);
+            return _matchingSession.findRiders(Convert.ToInt32(id), request);
        }
         [HttpPost]
         public Request confirm([FromHeader]string id, [FromBody]dynamic sentObj)
@@ -45,6 +46,8 @@ namespace mRides_server.Controllers
             int riderRequestId = sentObj.riderRequestId;
             return _matchingSession.confirm(userId, driverRequestId,riderRequestId);
         }
+        
+
         //[HttpPost]
         //public void createRide([FromBody]dynamic sentObject)
         //{
