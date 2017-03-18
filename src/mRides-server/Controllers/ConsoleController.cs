@@ -23,6 +23,7 @@ namespace mRides_server.Controllers
         public ConsoleController(ServerContext context)
         {
             _context = context;
+            _requestCatalog = new RequestCatalog(context);
             _matchingSession = new MatchingSession(_requestCatalog);
             _rideCatalog = new RideCatalog(context);
         }
