@@ -31,10 +31,9 @@ namespace mRides_server.Logic
         {
             return _context.Users.Find(id);
         }
-
         public object getUserByFacebookId(long facebookId)
         {
-            return _context.Users.FirstOrDefault(u => u.facebookID == facebookId);
+            return _context.Users.FirstOrDefault(u=>u.facebookID==facebookId);
         }
         public Boolean updateFcmToken(int id,string fcmToken)
         {
@@ -59,8 +58,8 @@ namespace mRides_server.Logic
         public void updateUser(User user)
         {
             //_context.Users.Find(userId);
+            
         }
-
         public List<Feedback> getReviews(int id)
         {
             List<Feedback> feedbacks = new List<Feedback>();
