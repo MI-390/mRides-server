@@ -79,55 +79,45 @@ namespace mRides_server.Logic
 
         public object findDrivers(int id, Request request)
         {
-            //    //Create new rider request
-            //    _requestCatalog.create(request, id);
+            //Create new Rider request
+            _requestCatalog.create(request, id);
 
-            //    //driverRequests is a list of requests of drivers that are looking for a rider
-            //    var driverRequests = _context.Requests
-            //            .Include(r => r.DriverRequests)
-            //                .ThenInclude(rr => rr.Driver)
-            //                .Where(r => r.Rider == null);
+            
+            //riderRequests is a list of requests of riders that are looking for a driver
+            var driverRequests = _requestCatalog.getNullRiders();
+            List<Request> filteredRequests = new List<Request>();
 
-            //    List<Request> filteredRequests = new List<Request>();
+            foreach (Request driverRequest in driverRequests)
+            {
+                string driverRequestDestination = driverRequest.destination;
+                string[] rD = driverRequestDestination.Split(',');
+                GeoCoordinate geoDriverRequestDestination = new GeoCoordinate(Double.Parse(rD[0]), Double.Parse(rD[1]));
 
-            //    foreach (Request driverRequest in driverRequests)
-            //    {
-            //        string driverRequestDestination = driverRequest.DriverRequests.FirstOrDefault().destination;
-            //        string[] dD = driverRequestDestination.Split(',');
-            //        GeoCoordinate geoDriverRequestDestination = new GeoCoordinate(Double.Parse(dD[0]), Double.Parse(dD[1]));
+                string driverRequestLocation = driverRequest.location;
+                string[] rL = driverRequestLocation.Split(',');
+                GeoCoordinate geoDriverRequestLocation = new GeoCoordinate(Double.Parse(rL[0]), Double.Parse(rL[1]));
+                List<DestinationCoordinate> destinationCoordinates = driverRequest.destinationCoordinates;
+                foreach (var destinationCoordinate in destinationCoordinates)
+                {
+                    var c = destinationCoordinate.coordinate.Split(',');
+                    GeoCoordinate geoDestinationCoordinate = new GeoCoordinate(Double.Parse(c[0]), Double.Parse(c[1]));
+                    if (geoDriverRequestDestination.GetDistanceTo(geoDestinationCoordinate) <= 1000)
+                    {
+                        foreach (var destinationCoordinate2 in destinationCoordinates)
+                        {
+                            var c2 = destinationCoordinate2.coordinate.Split(',');
+                            GeoCoordinate geoDestinationCoordinate2 = new GeoCoordinate(Double.Parse(c2[0]), Double.Parse(c2[1]));
+                            if (geoDriverRequestLocation.GetDistanceTo(geoDestinationCoordinate2) <= 1000)
+                            {
+                                filteredRequests.Add(driverRequest);
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
 
-            //        string driverRequestLocation = driverRequest.DriverRequests.FirstOrDefault().location;
-            //        string[] dL = driverRequestLocation.Split(',');
-            //        GeoCoordinate geoDriverRequestLocation = new GeoCoordinate(Double.Parse(dL[0]), Double.Parse(dL[1]));
-
-            //        foreach (var destinationCoordinate in destinationCoordinates)
-            //        {
-            //            var c = destinationCoordinate.Split(',');
-            //            GeoCoordinate geoDestinationCoordinate = new GeoCoordinate(Double.Parse(c[0]), Double.Parse(c[1]));
-            //            if (geoDriverRequestDestination.GetDistanceTo(geoDestinationCoordinate) <= 1000)
-            //            {
-            //                foreach (var destinationCoordinate2 in destinationCoordinates)
-            //                {
-            //                    var c2 = destinationCoordinate2.Split(',');
-            //                    GeoCoordinate geoDestinationCoordinate2 = new GeoCoordinate(Double.Parse(c2[0]), Double.Parse(c2[1]));
-            //                    if (geoDriverRequestLocation.GetDistanceTo(geoDestinationCoordinate2) <= 1000)
-            //                    {
-            //                        filteredRequests.Add(driverRequest);
-            //                        break;
-            //                    }
-            //                }
-            //                break;
-            //            }
-            //        }
-            //    }
-
-            //    var response = new
-            //    {
-            //        Requests = filteredRequests,
-            //        driverRequestID = request.ID
-            //    };
-
-            //    return response;
             return null;
         }
 
