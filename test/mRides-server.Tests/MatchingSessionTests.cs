@@ -129,6 +129,30 @@ namespace Tests
                 Assert.AreEqual(expectedUser.isHandicap, actualUser.isHandicap);
             }
         }
+        [Test]
+        public void filterByPreferences_takesRequest_returnsUserIsSameGander()
+        {
+            IQueryable<Request> requests = (IQueryable<Request>)sampleNullRequests();
+            User actualUser = mockUserCatalog.Object.get(1);
+            List<Request> expectedRequests = matchingSession.filterByPreferences(requests, 1);
+            foreach (var request in expectedRequests)
+            {
+                User expectedUser = request.RiderRequests.First().Rider;
+                Assert.AreEqual(expectedUser.genderPreference, actualUser.genderPreference);
+            }
+        }
+        [Test]
+        public void filterByPreferences_takesRequest_returnsUserHasPets()
+        {
+            IQueryable<Request> requests = (IQueryable<Request>)sampleNullRequests();
+            User actualUser = mockUserCatalog.Object.get(1);
+            List<Request> expectedRequests = matchingSession.filterByPreferences(requests, 1);
+            foreach (var request in expectedRequests)
+            {
+                User expectedUser = request.RiderRequests.First().Rider;
+                Assert.AreEqual(expectedUser.hasPet, actualUser.hasPet);
+            }
+        }
     }
 }
        
