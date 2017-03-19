@@ -84,6 +84,40 @@ namespace Tests
 
             return requests.AsQueryable();
         }
+        public IQueryable sampleNullRequestsRiders()
+        {
+            //Initializing Requests
+            var requests = new List<Request>();
+            string[,] coordinates = new string[2, 2]
+            {
+                {"45.443246,-73.644613","45.452562,-73.625714"},
+                {"45.443246,-73.644613","45.479196,-73.619449" }
+            };
+
+            for (int i = 0; i < 2; i++)
+            {
+                //Initialize user
+                User user = new User
+                {
+                    ID = i,
+                    hasLuggage = true,
+                    hasPet = true,
+                    isHandicap = true,
+                    isSmoker = true
+                };
+                //Initialize Request
+                Request request = new Request
+                {
+                    ID = i,
+                    Driver = user,
+                    destination = coordinates[i, 0],
+                    location = coordinates[i, 1]
+                };
+              
+                requests.Add(request);
+            }
+            return requests.AsQueryable();
+        }
 
         [TearDown]
         public void Tear() { }
@@ -104,6 +138,23 @@ namespace Tests
 
             MatchingSessionResponse sO =matchingSession.findRiders(3,request1AvToAng);
             Assert.AreEqual(0,sO.Requests.First().ID);
+        }
+        [Test]
+        public void findDrivers()
+        {
+            Request request1AvToAng = new Request
+            {
+                destinationCoordinates = new List<DestinationCoordinate>
+                {
+                    new DestinationCoordinate {coordinate= "45.443246,-73.644613"},
+                    new DestinationCoordinate {coordinate="45.452554,-73.625753"}
+},
+                location = "45.442170,-73.664830",
+                destination = "45.452715,-73.625920",
+            };
+
+            MatchingSessionResponse sO = matchingSession.findRiders(3, request1AvToAng);
+            Assert.AreEqual(0, sO.Requests.First().ID);
         }
         [Test]
         public void filterByPreferences_takesRequest_returnsUserWithSameLuggage()
