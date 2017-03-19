@@ -25,10 +25,10 @@ namespace mRides_server.Logic
         RequestCatalog _requestCatalog;
         UserCatalog _userCatalog;
 
-        public MatchingSession(RequestCatalog requestCatalog)
+        public MatchingSession(RequestCatalog requestCatalog, UserCatalog userCatalog)
         {
             _requestCatalog = requestCatalog;
-          
+            _userCatalog = userCatalog;
         }
 
         public MatchingSessionResponse findRiders(int id, Request request)
@@ -138,6 +138,17 @@ namespace mRides_server.Logic
         {
             //EVENTUALLY WE WILL GET CONFIMRATION FROM BOTH PARTIES
             return _requestCatalog.mergeRiderRequestToRequest(driverReqId, riderReqId);
+        }
+        public List<Request> filterByPreferences(IQueryable<Request> requests,int id)
+        {
+            var user = _userCatalog.get(id);
+            return requests.Where(r =>
+                r.RiderRequests.First().Rider.genderPreference == user.genderPreference &&
+                r.RiderRequests.First().Rider.hasLuggage ==user.hasLuggage &&
+                r.RiderRequests.First().Rider.isHandicap ==user.isHandicap &&
+                r.RiderRequests.First().Rider.hasPet ==user.hasPet &&
+                r.RiderRequests.First().Rider.isSmoker ==user.isSmoker
+                ).ToList();
         }
          public void sendPushNotification(int useID,string message)
         {

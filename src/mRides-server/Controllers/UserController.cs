@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Dynamic;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,26 +17,28 @@ namespace mRides_server.Controllers
 
     public class UserController : Controller
     {
-        
+
         private UserCatalog _userCatalog;
         public UserController(ICatalog<User> userCatalog)
         {
-            _userCatalog = (UserCatalog) userCatalog;
+            _userCatalog = (UserCatalog)userCatalog;
         }
 
-
         /// <summary>
-        /// This class is used to find a user by user id
+        /// Used to find a user by Facebook id
         /// </summary>
         [HttpPost]
         public object getUserByFacebookId([FromBody]string facebookId)
         {
             long fbId = long.Parse(facebookId);
             return _userCatalog.getUserByFacebookId(fbId);
-            
         }
+
+        /// <summary>
+        /// Used to find a user by user id
+        /// </summary>
         [HttpGet("{id}")]
-        public object getUser(int id)
+        public virtual object getUser(int id)
         {
             return _userCatalog.get(id);
         }
@@ -54,13 +57,14 @@ namespace mRides_server.Controllers
         public object createUser([FromBody]User user)
         {
             _userCatalog.create(user);
-            return user; 
+            return user;
         }
+
         /// <summary>
         /// Returns all the reviews of a user
         /// </summary>
         [HttpPost]
-        public void leaveReview([FromHeader]string id,[FromBody]dynamic sentObject )
+        public void leaveReview([FromHeader]string id, [FromBody]dynamic sentObject)
         {
             int userId = Convert.ToInt32(id);
             _userCatalog.leaveReview((int)sentObject.rideId, userId, (int)sentObject.revieweeId, (string)sentObject.review, (int)sentObject.star);
@@ -75,6 +79,28 @@ namespace mRides_server.Controllers
             return _userCatalog.getReviews(userId);
         }
 
+        /// <summary>
+        /// Returns the GSD of the user with the corresponding id
+        /// </summary>
+        [HttpGet("{id}")]
+        public long getGSD(int id)
+        {
+            return _userCatalog.get(id).GSD;
+        }
+
+        /// <summary>
+        /// Used to modify the GSD of a user
+        /// </summary>
+        // POST api/values
+        [HttpPost]
+        public long setGSD([FromHeader]string id, [FromBody]dynamic sentObject)
+        {
+            int newUserId = Convert.ToInt32(id);
+            //long newAmountGSD = long.Parse(sentObject.amountGSD);
+            int newAmountGSD = sentObject.amountGSD;
+            _userCatalog.setGSD(newUserId, newAmountGSD);
+            return _userCatalog.get(newUserId).GSD;
+        }
 
     }
 }

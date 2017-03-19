@@ -18,15 +18,21 @@ namespace Tests
     {
         UserCatalog catalog;
         Mock<RequestCatalog> mockRequestCatalog;
+        Mock<UserCatalog> mockUserCatalog;
         MatchingSession matchingSession;
         [SetUp]
         public void Setup()
         {
+            //MockRequestCatalog
             mockRequestCatalog = new Mock<RequestCatalog>();
-            //Setting up Request.getNullDriver
             mockRequestCatalog.Setup(rc => rc.getNullDriver()).Returns(sampleNullRequests());
             mockRequestCatalog.Setup(rc => rc.create(It.IsAny<Request>(),5)).Returns(new Request { ID = 5 });
-            matchingSession = new MatchingSession(mockRequestCatalog.Object);
+            
+            //MockUserCatalog
+            mockUserCatalog = new Mock<UserCatalog>();
+            mockUserCatalog.Setup(rc => rc.get(It.IsAny<int>())).Returns(new User { hasLuggage = true, hasPet = true, isHandicap = true, isSmoker = true });
+
+            matchingSession = new MatchingSession(mockRequestCatalog.Object,mockUserCatalog.Object);
         }
         public IQueryable sampleNullRequests()
         {
@@ -43,7 +49,11 @@ namespace Tests
                 //Initialize user
                 User user = new User
                 {
-                    ID = i
+                    ID = i,
+                    hasLuggage = true,
+                    hasPet = true,
+                    isHandicap = true,
+                    isSmoker=true
                 };
                 //Initialize Request
                 Request request = new Request
@@ -69,6 +79,7 @@ namespace Tests
                 request.RiderRequests = riderRequests;
                 requests.Add(request);
             }
+            requests.First().RiderRequests.First().Rider.isSmoker = false;
 
 
             return requests.AsQueryable();
@@ -94,7 +105,55 @@ namespace Tests
             MatchingSessionResponse sO =matchingSession.findRiders(3,request1AvToAng);
             Assert.AreEqual(0,sO.Requests.First().ID);
         }
-     }
+        [Test]
+        public void filterByPreferences_takesRequest_returnsUserWithSameLuggage()
+        {
+            IQueryable<Request> requests = (IQueryable<Request>)sampleNullRequests();
+            User actualUser = mockUserCatalog.Object.get(1);
+            List<Request> expectedRequests = matchingSession.filterByPreferences(requests, 1);
+            foreach(var request in expectedRequests)
+            {
+                User expectedUser = request.RiderRequests.First().Rider;
+                Assert.AreEqual(expectedUser.hasLuggage,actualUser.hasLuggage);
+            }   
+        }
+        [Test]
+        public void filterByPreferences_takesRequest_returnsUserIsHandicapped()
+        {
+            IQueryable<Request> requests = (IQueryable<Request>)sampleNullRequests();
+            User actualUser = mockUserCatalog.Object.get(1);
+            List<Request> expectedRequests = matchingSession.filterByPreferences(requests, 1);
+            foreach (var request in expectedRequests)
+            {
+                User expectedUser = request.RiderRequests.First().Rider;
+                Assert.AreEqual(expectedUser.isHandicap, actualUser.isHandicap);
+            }
+        }
+        [Test]
+        public void filterByPreferences_takesRequest_returnsUserIsSameGander()
+        {
+            IQueryable<Request> requests = (IQueryable<Request>)sampleNullRequests();
+            User actualUser = mockUserCatalog.Object.get(1);
+            List<Request> expectedRequests = matchingSession.filterByPreferences(requests, 1);
+            foreach (var request in expectedRequests)
+            {
+                User expectedUser = request.RiderRequests.First().Rider;
+                Assert.AreEqual(expectedUser.genderPreference, actualUser.genderPreference);
+            }
+        }
+        [Test]
+        public void filterByPreferences_takesRequest_returnsUserHasPets()
+        {
+            IQueryable<Request> requests = (IQueryable<Request>)sampleNullRequests();
+            User actualUser = mockUserCatalog.Object.get(1);
+            List<Request> expectedRequests = matchingSession.filterByPreferences(requests, 1);
+            foreach (var request in expectedRequests)
+            {
+                User expectedUser = request.RiderRequests.First().Rider;
+                Assert.AreEqual(expectedUser.hasPet, actualUser.hasPet);
+            }
+        }
+    }
 }
        
 

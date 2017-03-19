@@ -21,6 +21,8 @@
     "GeoCoordinate.NetCore": "1.0.0.1",
     "RestSharp.NetCore": "105.2.4-rc4-24214-01",
     "FirebaseNet": "1.0.1"
+    "GeoCoordinate.NetCore": "1.0.0.1",
+    "OpenCover": "4.6.519"
   },
 
   "tools": {

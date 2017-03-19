@@ -19,7 +19,7 @@ namespace mRides_server.Data
 
         public virtual DbSet<User> Users { get; set; }
         public DbSet<Ride> Rides { get; set; }
-        public DbSet<Request> Requests { get; set; }
+        public virtual DbSet<Request> Requests { get; set; }
         public DbSet<RiderRequest> RiderRequests { get; set; }
 
         //public DbSet<UserRides> UserRides { get; set; }
