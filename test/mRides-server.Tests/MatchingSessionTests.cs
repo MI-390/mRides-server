@@ -26,6 +26,7 @@ namespace Tests
             //MockRequestCatalog
             mockRequestCatalog = new Mock<RequestCatalog>();
             mockRequestCatalog.Setup(rc => rc.getNullDriver()).Returns(sampleNullRequests());
+            mockRequestCatalog.Setup(rc => rc.getNullRiders()).Returns(sampleNullRequestsRiders());
             mockRequestCatalog.Setup(rc => rc.create(It.IsAny<Request>(),5)).Returns(new Request { ID = 5 });
             
             //MockUserCatalog
@@ -111,7 +112,12 @@ namespace Tests
                     ID = i,
                     Driver = user,
                     destination = coordinates[i, 0],
-                    location = coordinates[i, 1]
+                    location = coordinates[i, 1],
+                    destinationCoordinates= new List<DestinationCoordinate>
+                    {
+                    new DestinationCoordinate {coordinate= "45.443246,-73.644613"},
+                    new DestinationCoordinate {coordinate="45.452554,-73.625753"}
+                    }
                 };
               
                 requests.Add(request);
@@ -125,18 +131,26 @@ namespace Tests
         [Test]
         public void findRiders()
         {
-            Request request1AvToAng = new Request
+           
+            Request request = new Request
             {
-                destinationCoordinates = new List<DestinationCoordinate>
-                {
-                    new DestinationCoordinate {coordinate= "45.443246,-73.644613"},
-                    new DestinationCoordinate {coordinate="45.452554,-73.625753"}
-},
-                location = "45.442170,-73.664830",
-                destination = "45.452715,-73.625920",
+                ID = 2,
+                Driver = null
             };
+            //Initialize RiderRequest Collection
+            //All the requests with null driver will have a single RiderRequest
+            List<RiderRequest> riderRequests = new List<RiderRequest>() {
+                    new RiderRequest()
+                    {
+                        ID=3,
+                        Request=request,
+                        destination= "45.442170,-73.664830",
+                        location= "45.452715,-73.625920",
+                    }
+                };
 
-            MatchingSessionResponse sO =matchingSession.findRiders(3,request1AvToAng);
+            request.RiderRequests = riderRequests;
+            MatchingSessionResponse sO =matchingSession.findDrivers(3,request);
             Assert.AreEqual(0,sO.Requests.First().ID);
         }
         [Test]
