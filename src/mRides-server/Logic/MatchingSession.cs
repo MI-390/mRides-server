@@ -133,8 +133,16 @@ namespace mRides_server.Logic
 
         public Request confirm(int id, int driverReqId, int riderReqId)
         {
-            //EVENTUALLY WE WILL GET CONFIMRATION FROM BOTH PARTIES
-            return _requestCatalog.mergeRiderRequestToRequest(driverReqId, riderReqId);
+            if (id == driverReqId)
+            {
+                var request=_requestCatalog.mergeRiderRequestToRequest(driverReqId, riderReqId);
+                sendPushNotification(riderReqId, "You have been matched");
+                return request;
+            }
+            return null;
+            
+            
+
         }
         public List<Request> filterByPreferences(IQueryable<Request> requests,int id)
         {
@@ -147,9 +155,9 @@ namespace mRides_server.Logic
                 r.RiderRequests.First().Rider.isSmoker ==user.isSmoker
                 ).ToList();
         }
-        public void sendPushNotification(int useID, string message)
+        public void sendPushNotification(int userId, string message)
         {
-            var fcmToken = _userCatalog.
+            var fcmToken = _userCatalog.getFcmToken(userId);
             Message message1 = new Message
             {
                 To = fcmToken,
