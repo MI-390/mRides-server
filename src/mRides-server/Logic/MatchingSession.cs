@@ -1,4 +1,5 @@
-﻿using GeoCoordinatePortable;
+﻿using FirebaseNet.Messaging;
+using GeoCoordinatePortable;
 using Microsoft.EntityFrameworkCore;
 using mRides_server.Data;
 using mRides_server.Models;
@@ -145,6 +146,18 @@ namespace mRides_server.Logic
                 r.RiderRequests.First().Rider.hasPet ==user.hasPet &&
                 r.RiderRequests.First().Rider.isSmoker ==user.isSmoker
                 ).ToList();
+        }
+        public void sendPushNotification(int useID, string message)
+        {
+            var fcmToken = _userCatalog.
+            Message message1 = new Message
+            {
+                To = fcmToken,
+                Notification = new AndroidNotification { Body = message }
+
+            };
+            FCMClient client1 = new FCMClient("AAAAWdiPzA0:APA91bHuL6OOYCKjZVByO-W1e9w0fX15k92Xx1vaxnOelk7K8al6wIIIpVIuUTfp5TUqzI4ordc1NSZ0A8k1l5RSMGDndYDubo1gtssKmvGGFtLocOEI6rfo1_k2bguJwmhvZd9ko0lj");
+            client1.SendMessageAsync(message1);
         }
     }
 

@@ -156,6 +156,10 @@ namespace mRides_server.Logic
             User u = get(userId);
             return u.GSD;
         }
-
+        public string getFcmToken(int userId)
+        {
+            return _context.Users.FirstOrDefault(u => u.ID == userId).fcmToken;
+          
+         }
     }
 }

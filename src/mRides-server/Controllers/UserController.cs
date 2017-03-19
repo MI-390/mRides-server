@@ -101,6 +101,6 @@ namespace mRides_server.Controllers
             _userCatalog.setGSD(newUserId, newAmountGSD);
             return _userCatalog.get(newUserId).GSD;
         }
-
+       
     }
 }
