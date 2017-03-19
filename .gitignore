@@ -241,3 +241,6 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 /.scannerwork
+/test/mRides-server.Tests/CodecovUploader.sh
+/test/mRides-server.Tests/coverage.xml
+/coverage.xml
