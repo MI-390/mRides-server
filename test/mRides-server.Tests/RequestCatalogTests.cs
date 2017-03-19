@@ -34,12 +34,20 @@ namespace Tests
          * Not run yet
          */
         [TestCase(1,2)]
-        public void mergeRiderRequestToRequest_takesTwoRequests_returnsMergedRequest(int i,int j)
+        public void mergeRiderRequestToRequest_takesTwoRequests_returnsDriverInMergedRequest(int i,int j)
         {
             Request expectedRequest=catalog.mergeRiderRequestToRequest(i, j);
             User expectedDriver = expectedRequest.Driver;
             User expectedRider = expectedRequest.RiderRequests.First().Rider;
             Assert.AreEqual(expectedDriver.ID,1);
+        }
+        [TestCase(1, 2)]
+        public void mergeRiderRequestToRequest_takesTwoRequests_returnsRiderInMergedRequest(int i, int j)
+        {
+            Request expectedRequest = catalog.mergeRiderRequestToRequest(i, j);
+            User expectedDriver = expectedRequest.Driver;
+            User expectedRider = expectedRequest.RiderRequests.First().Rider;
+            Assert.AreEqual(expectedRider.ID, 1);
         }
 
         public Mock<DbSet<Request>> initializeMokSet()
