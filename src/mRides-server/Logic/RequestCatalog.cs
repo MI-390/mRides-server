@@ -119,7 +119,8 @@ namespace mRides_server.Logic
                             .ThenInclude(rr => rr.Rider)
                         .FirstOrDefault(r => r.ID == reqId);
             ICollection<RiderRequest> ridersRemoved = request.RiderRequests;
-            request.RiderRequests.Remove(requestToRemove);
+            _context.Remove(request);
+            _context.SaveChanges();
         }
 
         public void addDriver(int requestId,User driver)
