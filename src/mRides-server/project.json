@@ -18,7 +18,8 @@
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.1.0",
     "SapientGuardian.EntityFrameworkCore.MySql": "7.1.19",
     "Swashbuckle.AspNetCore": "1.0.0-rc1",
-    "GeoCoordinate.NetCore": "1.0.0.1"
+    "GeoCoordinate.NetCore": "1.0.0.1",
+    "RestSharp.NetCore": "105.2.4-rc4-24214-01"
   },
 
   "tools": {
