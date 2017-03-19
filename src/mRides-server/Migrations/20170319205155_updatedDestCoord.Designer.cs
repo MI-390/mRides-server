@@ -8,28 +8,13 @@ using mRides_server.Data;
 namespace mRidesserver.Migrations
 {
     [DbContext(typeof(ServerContext))]
-    partial class ServerContextModelSnapshot : ModelSnapshot
+    [Migration("20170319205155_updatedDestCoord")]
+    partial class updatedDestCoord
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.0-rtm-22752");
-
-            modelBuilder.Entity("mRides_server.Models.DestinationCoordinate", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("RequestID");
-
-                    b.Property<string>("coordinate");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("RequestID");
-
-                    b.ToTable("DestinationCoordinate");
-                });
 
             modelBuilder.Entity("mRides_server.Models.Request", b =>
                 {
@@ -157,14 +142,6 @@ namespace mRidesserver.Migrations
                     b.HasIndex("RiderId");
 
                     b.ToTable("UserRides");
-                });
-
-            modelBuilder.Entity("mRides_server.Models.DestinationCoordinate", b =>
-                {
-                    b.HasOne("mRides_server.Models.Request", "Request")
-                        .WithMany()
-                        .HasForeignKey("RequestID")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("mRides_server.Models.Request", b =>

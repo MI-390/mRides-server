@@ -32,7 +32,7 @@ namespace mRides_server.Logic
         {
             //Create new driver request
             _requestCatalog.create(request, id);
-            List<string> destinationCoordinates = request.destinationCoordinates;
+            List<DestinationCoordinate> destinationCoordinates = request.destinationCoordinates;
             //riderRequests is a list of requests of riders that are looking for a driver
             var riderRequests = _requestCatalog.getNullDriver();
             List<Request> filteredRequests = new List<Request>();
@@ -49,13 +49,13 @@ namespace mRides_server.Logic
 
                 foreach (var destinationCoordinate in destinationCoordinates)
                 {
-                    var c = destinationCoordinate.Split(',');
+                    var c = destinationCoordinate.coordinate.Split(',');
                     GeoCoordinate geoDestinationCoordinate = new GeoCoordinate(Double.Parse(c[0]), Double.Parse(c[1]));
                     if (geoRiderRequestDestination.GetDistanceTo(geoDestinationCoordinate) <= 1000)
                     {
                         foreach (var destinationCoordinate2 in destinationCoordinates)
                         {
-                            var c2 = destinationCoordinate2.Split(',');
+                            var c2 = destinationCoordinate2.coordinate.Split(',');
                             GeoCoordinate geoDestinationCoordinate2 = new GeoCoordinate(Double.Parse(c2[0]), Double.Parse(c2[1]));
                             if (geoRiderRequestLocation.GetDistanceTo(geoDestinationCoordinate2) <= 1000)
                             {
@@ -77,7 +77,7 @@ namespace mRides_server.Logic
             return response;
         }
 
-        public object findDrivers(int id, Request request, List<string> destinationCoordinates)
+        public object findDrivers(int id, Request request)
         {
             //    //Create new rider request
             //    _requestCatalog.create(request, id);

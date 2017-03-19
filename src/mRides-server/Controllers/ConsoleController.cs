@@ -33,7 +33,7 @@ namespace mRides_server.Controllers
        [HttpPost]
        public object findDrivers([FromHeader]string id,[FromBody]Request request)
        {
-            return _matchingSession.findDrivers(Convert.ToInt32(id), request, request.destinationCoordinates);
+            return _matchingSession.findDrivers(Convert.ToInt32(id), request);
         }
 
         [HttpPost]

@@ -93,11 +93,11 @@ namespace Tests
         {
             Request request1AvToAng = new Request
             {
-                destinationCoordinates = new List<string>
+                destinationCoordinates = new List<DestinationCoordinate>
                 {
-                    "45.443246,-73.644613",
-                    "45.452554,-73.625753"
-                },
+                    new DestinationCoordinate {coordinate= "45.443246,-73.644613"},
+                    new DestinationCoordinate {coordinate="45.452554,-73.625753"}
+},
                 location = "45.442170,-73.664830",
                 destination = "45.452715,-73.625920",
             };

@@ -21,7 +21,7 @@ namespace mRides_server.Data
         public DbSet<Ride> Rides { get; set; }
         public virtual DbSet<Request> Requests { get; set; }
         public DbSet<RiderRequest> RiderRequests { get; set; }
-
+        public DbSet<DestinationCoordinate> DestinationCoordinates { get; set; }
         //public DbSet<UserRides> UserRides { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
