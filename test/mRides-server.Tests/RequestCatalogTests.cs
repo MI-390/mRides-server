@@ -39,7 +39,7 @@ namespace Tests
             Request expectedRequest=catalog.mergeRiderRequestToRequest(i, j);
             User expectedDriver = expectedRequest.Driver;
             User expectedRider = expectedRequest.RiderRequests.First().Rider;
-            Assert.Equals(expectedDriver.ID,1);
+            Assert.AreEqual(expectedDriver.ID,1);
         }
 
         public Mock<DbSet<Request>> initializeMokSet()
@@ -49,7 +49,8 @@ namespace Tests
             Request request1 = new Request
             {
                 ID = 1,
-                Driver = new User{ ID = 1 }
+                Driver = new User{ ID = 1 },
+                RiderRequests = new List<RiderRequest>() 
             };
             //Rider Request
             Request request2 = new Request
@@ -57,6 +58,8 @@ namespace Tests
                 ID = 2,
                 RiderRequests = new List<RiderRequest> { new RiderRequest { Rider = new User { ID = 1 } } }
             };
+            requestList.Add(request1);
+            requestList.Add(request2);
             
            
             var requests=requestList.AsQueryable();
