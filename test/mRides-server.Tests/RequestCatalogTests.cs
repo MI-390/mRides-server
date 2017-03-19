@@ -15,7 +15,7 @@ namespace Tests
     [TestFixture]
     public class RequestCatalogTest    
     {
-        Request catalog;
+        RequestCatalog catalog;
         [SetUp]
         public void Setup() {
             int userId = 1;
@@ -23,50 +23,23 @@ namespace Tests
 
             var mockContext = new Mock<ServerContext>();
             mockContext.Setup(c => c.Requests).Returns(mokSet.Object);
-            catalog = new UserCatalog(mockContext.Object);
+            catalog = new RequestCatalog(mockContext.Object);
         }
 
         [TearDown]
         public void Tear() { }
 
-        [Test]
-        public void GetReview() 
-        {
-            var feedbacks=catalog.getReviews(1);
-            foreach(var feedback in feedbacks)
-            {
-                if (feedback.givenAs == "rider")
-                {
-                    Assert.AreEqual(feedback.feedbackText,"Driver 2 to Rider 1");
-                }
-                else if (feedback.givenAs == "driver")
-                {
-                    Assert.AreEqual(feedback.feedbackText,"Rider 4 to Driver 1");
-                }
-            } 
-        }
-
-        /*
-         * Not run yet 
-         */ 
-        [Test]
-        public void GetGSDTest()
-        {
-            User u = new User();
-            u.ID = 1;
-            u.GSD = 500;
-            catalog.create(u);
-
-            Assert.AreEqual(catalog.getGSD(1), 500);
-        }
 
         /*
          * Not run yet
          */
-        [Test]
-        public void SetGSDTest()
+        [TestCase(1,2)]
+        public void mergeRiderRequestToRequest_takesTwoRequests_returnsMergedRequest(int i,int j)
         {
-
+            Request expectedRequest=catalog.mergeRiderRequestToRequest(i, j);
+            User expectedDriver = expectedRequest.Driver;
+            User expectedRider = expectedRequest.RiderRequests.First().Rider;
+            Assert.Equals(expectedDriver.ID,1);
         }
 
         public Mock<DbSet<Request>> initializeMokSet()
@@ -76,7 +49,7 @@ namespace Tests
             Request request1 = new Request
             {
                 ID = 1,
-                Driver = { ID = 1 }
+                Driver = new User{ ID = 1 }
             };
             //Rider Request
             Request request2 = new Request
