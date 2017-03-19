@@ -102,6 +102,15 @@ namespace mRides_server.Logic
             _context.Remove(_context.Requests.Find(ID));
             _context.SaveChanges();
         }
+        public void removeRider(int reqId,int userId)
+        {
+            Request request=_context.Requests
+                        .Include(r => r.RiderRequests)
+                            .ThenInclude(rr => rr.Rider)
+                        .FirstOrDefault(r=>r.ID==reqId);
+            RiderRequest requestToRemove = request.RiderRequests.FirstOrDefault(rr => rr.Rider.ID == userId);
+            request.RiderRequests.Remove(requestToRemove);
+        }
 
         public void addDriver(int requestId,User driver)
         {
