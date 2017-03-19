@@ -30,9 +30,7 @@ namespace Tests
         public void Tear() { }
 
 
-        /*
-         * Not run yet
-         */
+      
         [TestCase(1,2)]
         public void mergeRiderRequestToRequest_takesTwoRequests_returnsDriverInMergedRequest(int i,int j)
         {
