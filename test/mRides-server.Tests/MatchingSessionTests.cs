@@ -129,7 +129,7 @@ namespace Tests
         public void Tear() { }
 
         [Test]
-        public void findRiders()
+        public void findRiders_takesRequest_returnsListofMarchedRequests()
         {
            
             Request request = new Request
@@ -154,7 +154,7 @@ namespace Tests
             Assert.AreEqual(0,sO.Requests.First().ID);
         }
         [Test]
-        public void findDrivers()
+        public void findDrivers_takesRequest_returnsListOfMatchedRequests()
         {
             Request request1AvToAng = new Request
             {
