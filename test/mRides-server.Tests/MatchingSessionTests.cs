@@ -150,7 +150,7 @@ namespace Tests
                 };
 
             request.RiderRequests = riderRequests;
-            MatchingSessionResponse sO =matchingSession.findDrivers(3,request);
+            MatchingSessionResponseRider sO =matchingSession.findDrivers(3,request);
             Assert.AreEqual(0,sO.Requests.First().ID);
         }
         [Test]
@@ -162,12 +162,12 @@ namespace Tests
                 {
                     new DestinationCoordinate {coordinate= "45.443246,-73.644613"},
                     new DestinationCoordinate {coordinate="45.452554,-73.625753"}
-},
+                },
                 location = "45.442170,-73.664830",
                 destination = "45.452715,-73.625920",
             };
 
-            MatchingSessionResponse sO = matchingSession.findRiders(3, request1AvToAng);
+            MatchingSessionResponseDriver sO = matchingSession.findRiders(3, request1AvToAng);
             Assert.AreEqual(0, sO.Requests.First().ID);
         }
         [Test]

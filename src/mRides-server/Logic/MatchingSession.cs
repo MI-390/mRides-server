@@ -10,10 +10,15 @@ using System.Threading.Tasks;
 
 namespace mRides_server.Logic
 {
-    public class MatchingSessionResponse
+    public class MatchingSessionResponseDriver
     {
         public List<Request> Requests { get; set; }
         public int driverRequestID { get; set; }
+    }
+    public class MatchingSessionResponseRider
+    {
+        public List<Request> Requests { get; set; }
+        public int riderRequestID { get; set; }
     }
     public class MatchingSession
     {
@@ -28,7 +33,7 @@ namespace mRides_server.Logic
             _userCatalog = userCatalog;
         }
 
-        public MatchingSessionResponse findRiders(int id, Request request)
+        public MatchingSessionResponseDriver findRiders(int id, Request request)
         {
             //Create new driver request
             _requestCatalog.create(request, id);
@@ -68,7 +73,7 @@ namespace mRides_server.Logic
                 }
             }
 
-            MatchingSessionResponse response = new MatchingSessionResponse
+            MatchingSessionResponseDriver response = new MatchingSessionResponseDriver
             {
                 Requests = filteredRequests,
                 driverRequestID = request.ID
@@ -77,7 +82,7 @@ namespace mRides_server.Logic
             return response;
         }
 
-        public object findDrivers(int id, Request request)
+        public MatchingSessionResponseRider findDrivers(int id, Request request)
         {
             //Create new Rider request
             _requestCatalog.create(request, id);
@@ -118,7 +123,13 @@ namespace mRides_server.Logic
                 }
             }
 
-            return null;
+            MatchingSessionResponseRider response = new MatchingSessionResponseRider
+            {
+                Requests = filteredRequests,
+                riderRequestID = request.ID
+            };
+
+            return response;
         }
 
         public Request confirm(int id, int driverReqId, int riderReqId)
