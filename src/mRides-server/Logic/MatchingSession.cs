@@ -37,7 +37,7 @@ namespace mRides_server.Logic
         {
             //Create new driver request
             _requestCatalog.create(request, id);
-            List<DestinationCoordinate> destinationCoordinates = request.destinationCoordinates;
+            List<DestinationCoordinate> destinationCoordinates = request.destinationCoordinates.ToList();
             //riderRequests is a list of requests of riders that are looking for a driver
             var riderRequests = _requestCatalog.getNullDriver();
             List<Request> filteredRequests = new List<Request>();
@@ -101,7 +101,7 @@ namespace mRides_server.Logic
                 string driverRequestLocation = driverRequest.location;
                 string[] rL = driverRequestLocation.Split(',');
                 GeoCoordinate geoDriverRequestLocation = new GeoCoordinate(Double.Parse(rL[0]), Double.Parse(rL[1]));
-                List<DestinationCoordinate> destinationCoordinates = driverRequest.destinationCoordinates;
+                List<DestinationCoordinate> destinationCoordinates = driverRequest.destinationCoordinates.ToList();
                 foreach (var destinationCoordinate in destinationCoordinates)
                 {
                     var c = destinationCoordinate.coordinate.Split(',');
