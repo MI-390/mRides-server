@@ -15,7 +15,7 @@ namespace mRides_server.Models
         public Boolean isWeekly { get; set; }
         [NotMapped]
         public string type;
-        public ICollection<DestinationCoordinate> destinationCoordinates { get; set};
+        public ICollection<DestinationCoordinate> destinationCoordinates { get; set; }
         //public string type;
 
         //1 Driver per Ride
