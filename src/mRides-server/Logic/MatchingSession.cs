@@ -134,16 +134,10 @@ namespace mRides_server.Logic
 
         public Request confirm(int id, int driverReqId, int riderReqId)
         {
-            if (id == driverReqId)
-            {
+           
                 var request=_requestCatalog.mergeRiderRequestToRequest(driverReqId, riderReqId);
                 sendPushNotification(riderReqId, "You have been matched");
                 return request;
-            }
-            return null;
-            
-            
-
         }
         public List<Request> filterByPreferences(IQueryable<Request> requests,int id)
         {

@@ -161,5 +161,27 @@ namespace mRides_server.Logic
             return _context.Users.FirstOrDefault(u => u.ID == userId).fcmToken;
           
          }
+        public ICollection<Request> getRequests(int userId)
+        {
+            User user=_context.Users
+                .Include(u => u.RequestAsRider)
+                    .ThenInclude(rr => rr.Request)
+                .Include(u => u.RequestsAsDriver)
+                .First(u => u.ID == userId);
+            ICollection<Request> requests = new List<Request>();
+            requests = user.RequestsAsDriver;
+            if (user.RequestAsRider.Count() != 0)
+            {
+                foreach(var rr in user.RequestAsRider)
+                {
+                    requests.Add(rr.Request);
+                }
+            }
+            return requests;
+           
+
+
+            }
+        }
     }
 }

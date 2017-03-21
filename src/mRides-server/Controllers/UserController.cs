@@ -42,6 +42,11 @@ namespace mRides_server.Controllers
         {
             return _userCatalog.get(id);
         }
+        [HttpGet("{id}")]
+        public virtual ICollection<Request> getRequests(int id)
+        {
+            return _userCatalog.getRequests(id);
+        }
         [HttpPost]
         public Boolean updateFcmToken([FromHeader]string id, [FromBody]dynamic sentObj)
         {

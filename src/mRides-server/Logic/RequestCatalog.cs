@@ -36,13 +36,12 @@ namespace mRides_server.Logic
                 .Where(s => s.Driver== null)
                 .ToList();
         }
-        public List<mRides_server.Models.Request> getRequestsForRiders()
+        public List<mRides_server.Models.Request> getRequests(int userId)
         {
             return null;
-           // return _context.Requests
-                 //.Where(s => s.type == "driver")
-                 //.ToList();
         }
+
+   
         public virtual Request create(Request request, int userId)
         {
             
