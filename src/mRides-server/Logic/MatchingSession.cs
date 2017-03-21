@@ -134,7 +134,7 @@ namespace mRides_server.Logic
 
         public Request confirm(int id, int driverReqId, int riderReqId)
         {
-           
+                
                 var request=_requestCatalog.mergeRiderRequestToRequest(driverReqId, riderReqId);
                 sendPushNotification(riderReqId, "You have been matched");
                 return request;
@@ -152,10 +152,10 @@ namespace mRides_server.Logic
         }
         public void sendPushNotification(int userId, string message)
         {
-            var fcmToken = _userCatalog.getFcmToken(userId);
+            //var fcmToken = _userCatalog.getFcmToken(userId);
             Message message1 = new Message
             {
-                To = fcmToken,
+                To = "UzynHVJ3h5dso6S9C1dCEz1xY0P57u9V49DUImQdBIF0GZ8S5GBDDhbww_PwR0dfdaF8F",
                 Notification = new AndroidNotification { Body = message }
 
             };
