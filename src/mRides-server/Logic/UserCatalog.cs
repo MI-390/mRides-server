@@ -143,7 +143,6 @@ namespace mRides_server.Logic
 
         public void setGSD(int userId, long amountGSD)
         {
-            //User u = _context.Users.Find(userId);
             User u = get(userId);
             u.GSD = amountGSD;
             _context.SaveChanges();
@@ -151,7 +150,6 @@ namespace mRides_server.Logic
 
         public long getGSD(int userId)
         {
-            //User u = _context.Users.Find(userId);
             User u = get(userId);
             return u.GSD;
         }

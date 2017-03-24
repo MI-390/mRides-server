@@ -93,10 +93,11 @@ namespace mRides_server.Controllers
         /// </summary>
         // POST api/values
         [HttpPost]
-        public long setGSD([FromHeader]string id, [FromBody]dynamic sentObject)
+        public long setGSD([FromBody]dynamic sentObject)
         {
-            int newUserId = Convert.ToInt32(id);
+            //int newUserId = Convert.ToInt32(userId);
             //long newAmountGSD = long.Parse(sentObject.amountGSD);
+            int newUserId = sentObject.userId;
             int newAmountGSD = sentObject.amountGSD;
             _userCatalog.setGSD(newUserId, newAmountGSD);
             return _userCatalog.get(newUserId).GSD;
