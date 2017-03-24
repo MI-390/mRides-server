@@ -38,9 +38,14 @@ namespace mRides_server.Controllers
         /// Used to find a user by user id
         /// </summary>
         [HttpGet("{id}")]
-        public object getUser(int id)
+        public virtual object getUser(int id)
         {
             return _userCatalog.get(id);
+        }
+        [HttpGet("{id}")]
+        public virtual ICollection<Request> getRequests(int id)
+        {
+            return _userCatalog.getRequests(id);
         }
         [HttpPost]
         public Boolean updateFcmToken([FromHeader]string id, [FromBody]dynamic sentObj)
@@ -102,6 +107,6 @@ namespace mRides_server.Controllers
             _userCatalog.setGSD(newUserId, newAmountGSD);
             return _userCatalog.get(newUserId).GSD;
         }
-
+       
     }
 }

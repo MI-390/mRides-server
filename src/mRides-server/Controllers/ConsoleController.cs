@@ -20,17 +20,20 @@ namespace mRides_server.Controllers
         private MatchingSession _matchingSession;
         private RideCatalog _rideCatalog;
         private RequestCatalog _requestCatalog;
+        private UserCatalog _userCatalog;
         public ConsoleController(ServerContext context)
         {
             _context = context;
-            _matchingSession = new MatchingSession(_requestCatalog);
+            _requestCatalog = new RequestCatalog(context);
+            _userCatalog = new UserCatalog(context);
+            _matchingSession = new MatchingSession(_requestCatalog,_userCatalog);
             _rideCatalog = new RideCatalog(context);
         }
 
        [HttpPost]
        public object findDrivers([FromHeader]string id,[FromBody]Request request)
        {
-            return _matchingSession.findDrivers(Convert.ToInt32(id), request, request.destinationCoordinates);
+            return _matchingSession.findDrivers(Convert.ToInt32(id), request);
         }
 
         [HttpPost]

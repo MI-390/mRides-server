@@ -36,13 +36,12 @@ namespace mRides_server.Logic
                 .Where(s => s.Driver== null)
                 .ToList();
         }
-        public List<mRides_server.Models.Request> getRequestsForRiders()
+        public List<mRides_server.Models.Request> getRequests(int userId)
         {
             return null;
-           // return _context.Requests
-                 //.Where(s => s.type == "driver")
-                 //.ToList();
         }
+
+   
         public virtual Request create(Request request, int userId)
         {
             
@@ -74,13 +73,20 @@ namespace mRides_server.Logic
             _context.SaveChanges();
             return request;
         }
-        //Return All requests without any driver
+        //Return All requests without any driver(Riders looking for drivers)
         public virtual IQueryable getNullDriver()
         {
             return _context.Requests
                     .Include(r => r.RiderRequests)
                         .ThenInclude(rr => rr.Rider)
                         .Where(r => r.Driver == null);
+        }
+        //Return All requests without any rider (Drivers looking for Riders
+        public virtual IQueryable getNullRiders()
+        {
+            return _context.Requests
+                    .Include(r=>r.destinationCoordinates)
+                        .Where(r => r.RiderRequests.Count==0);
         }
         public Request mergeRiderRequestToRequest(int driverReqId,int riderReqId)
         {

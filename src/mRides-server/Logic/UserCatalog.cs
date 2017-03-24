@@ -12,7 +12,10 @@ namespace mRides_server.Logic
     public class UserCatalog : ICatalog<User>
     {
         ServerContext _context;
+        public UserCatalog()
+        {
 
+        }
         public UserCatalog(ServerContext context)
         {
             _context = context;
@@ -24,15 +27,13 @@ namespace mRides_server.Logic
             _context.SaveChanges();
             return user;
         }
-
-        public User get(int id)
+        public virtual User get(int id)
         {
             return _context.Users.Find(id);
         }
-
         public object getUserByFacebookId(long facebookId)
         {
-            return _context.Users.FirstOrDefault(u => u.facebookID == facebookId);
+            return _context.Users.FirstOrDefault(u=>u.facebookID==facebookId);
         }
         public Boolean updateFcmToken(int id,string fcmToken)
         {
@@ -57,8 +58,8 @@ namespace mRides_server.Logic
         public void updateUser(User user)
         {
             //_context.Users.Find(userId);
+            
         }
-
         public List<Feedback> getReviews(int id)
         {
             List<Feedback> feedbacks = new List<Feedback>();
@@ -153,6 +154,32 @@ namespace mRides_server.Logic
             User u = get(userId);
             return u.GSD;
         }
+        public string getFcmToken(int userId)
+        {
+            return _context.Users.FirstOrDefault(u => u.ID == userId).fcmToken;
+          
+         }
+        public ICollection<Request> getRequests(int userId)
+        {
+            User user=_context.Users
+                .Include(u => u.RequestAsRider)
+                    .ThenInclude(rr => rr.Request)
+                .Include(u => u.RequestsAsDriver)
+                .First(u => u.ID == userId);
+            ICollection<Request> requests = new List<Request>();
+            requests = user.RequestsAsDriver;
+            if (user.RequestAsRider.Count() != 0)
+            {
+                foreach(var rr in user.RequestAsRider)
+                {
+                    requests.Add(rr.Request);
+                }
+            }
+            return requests;
+           
 
+
+            }
+        
     }
 }
