@@ -85,6 +85,7 @@ namespace mRides_server.Logic
         public virtual IQueryable getNullRiders()
         {
             return _context.Requests
+                    .Include(r=>r.Driver)
                     .Include(r=>r.destinationCoordinates)
                         .Where(r => r.RiderRequests.Count==0);
         }
