@@ -19,6 +19,7 @@ namespace mRides_server.Models
         public Boolean hasLuggage { get; set; }
         public long GSD { get; set; }
         public Boolean hasPet { get; set; }
+        public string gender { get; set; }
         public string genderPreference { get; set; }
         public string fcmToken { get; set; }
         //Rides as Driver

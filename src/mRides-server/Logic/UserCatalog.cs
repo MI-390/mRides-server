@@ -144,7 +144,6 @@ namespace mRides_server.Logic
 
         public void setGSD(int userId, long amountGSD)
         {
-            //User u = _context.Users.Find(userId);
             User u = get(userId);
             u.GSD = amountGSD;
             _context.SaveChanges();
@@ -152,10 +151,23 @@ namespace mRides_server.Logic
 
         public long getGSD(int userId)
         {
-            //User u = _context.Users.Find(userId);
             User u = get(userId);
             return u.GSD;
         }
+
+        public string getGender(int userId)
+        {
+            User u = get(userId);
+            return u.gender;
+        }
+
+        public void setGender(int userId, string userGender)
+        {
+            User u = get(userId);
+            u.gender = userGender;
+            _context.SaveChanges();
+        }
+
         public string getFcmToken(int userId)
         {
             return _context.Users.FirstOrDefault(u => u.ID == userId).fcmToken;

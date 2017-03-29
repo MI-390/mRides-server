@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using mRides_server.Data;
-using mRides_server.Models;
 
 namespace mRidesserver.Migrations
 {
     [DbContext(typeof(ServerContext))]
-    partial class ServerContextModelSnapshot : ModelSnapshot
+    [Migration("20170329144900_genderColumn")]
+    partial class genderColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.0-rtm-22752");
@@ -131,8 +131,6 @@ namespace mRidesserver.Migrations
 
                     b.ToTable("User");
                 });
-
-            modelBuilder.Entity<User>().Property(u => u.gender).HasDefaultValue("female");
 
             modelBuilder.Entity("mRides_server.Models.UserRides", b =>
                 {
