@@ -120,9 +120,9 @@ namespace mRides_server.Controllers
         /// </summary>
         // POST api/values
         [HttpPost]
-        public string setGender([FromHeader]string id, [FromBody]dynamic sentObject)
+        public string setGender([FromBody]dynamic sentObject)
         {
-            int newUserId = Convert.ToInt32(id);
+            int newUserId = sentObject.userId;
             string genderToChange = sentObject.userGender;
             _userCatalog.setGender(newUserId, genderToChange);
             return _userCatalog.get(newUserId).gender;
