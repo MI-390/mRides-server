@@ -19,6 +19,7 @@ namespace mRides_server.Controllers
     {
 
         private UserCatalog _userCatalog;
+
         public UserController(ICatalog<User> userCatalog)
         {
             _userCatalog = (UserCatalog)userCatalog;
@@ -42,11 +43,13 @@ namespace mRides_server.Controllers
         {
             return _userCatalog.get(id);
         }
+
         [HttpGet("{id}")]
         public virtual ICollection<Request> getRequests(int id)
         {
             return _userCatalog.getRequests(id);
         }
+
         [HttpPost]
         public Boolean updateFcmToken([FromHeader]string id, [FromBody]dynamic sentObj)
         {
@@ -54,8 +57,9 @@ namespace mRides_server.Controllers
            return _userCatalog.updateFcmToken(userId, (string)sentObj.fcmToken);
 
         }
+
         /// <summary>
-        /// This class is used as an api for the search requests.
+        /// This method is used as an api for the search requests.
         /// </summary>
         // POST api/values
         [HttpPost]
@@ -98,10 +102,9 @@ namespace mRides_server.Controllers
         /// </summary>
         // POST api/values
         [HttpPost]
-        public long setGSD([FromHeader]string id, [FromBody]dynamic sentObject)
+        public long setGSD([FromBody]dynamic sentObject)
         {
-            int newUserId = Convert.ToInt32(id);
-            //long newAmountGSD = long.Parse(sentObject.amountGSD);
+            int newUserId = sentObject.userId;
             int newAmountGSD = sentObject.amountGSD;
             _userCatalog.setGSD(newUserId, newAmountGSD);
             return _userCatalog.get(newUserId).GSD;
