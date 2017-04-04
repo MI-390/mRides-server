@@ -109,6 +109,29 @@ namespace mRides_server.Controllers
             _userCatalog.setGSD(newUserId, newAmountGSD);
             return _userCatalog.get(newUserId).GSD;
         }
-       
+
+        /// <summary>
+        /// Returns the gender of the user with the corresponding id
+        /// </summary>
+        [HttpGet("{id}")]
+        public string getGender(int id)
+        {
+            return _userCatalog.get(id).gender;
+        }
+
+        /// <summary>
+        /// Used to modify the gender of a user
+        /// </summary>
+        // POST api/values
+        [HttpPost]
+        public string setGender([FromBody]dynamic sentObject)
+        {
+            int newUserId = sentObject.userId;
+            string genderToChange = sentObject.userGender;
+            _userCatalog.setGender(newUserId, genderToChange);
+            return _userCatalog.get(newUserId).gender;
+        }
+
+
     }
 }

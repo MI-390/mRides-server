@@ -154,6 +154,20 @@ namespace mRides_server.Logic
             User u = get(userId);
             return u.GSD;
         }
+
+        public string getGender(int userId)
+        {
+            User u = get(userId);
+            return u.gender;
+        }
+
+        public void setGender(int userId, string userGender)
+        {
+            User u = get(userId);
+            u.gender = userGender;
+            _context.SaveChanges();
+        }
+
         public string getFcmToken(int userId)
         {
             return _context.Users.FirstOrDefault(u => u.ID == userId).fcmToken;
