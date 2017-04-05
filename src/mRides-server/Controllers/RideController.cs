@@ -25,12 +25,20 @@ namespace mRides_server.Controllers
         }
 
 
-
+        /// <summary>
+        /// Method used to create a ride
+        /// </summary>
+        // POST api/values
         [HttpPost]
         public Ride createRide([FromBody]Ride ride,[FromHeader]string id)
         { 
             return _rideCatalog.create(ride, Convert.ToInt32(id));
         }
+
+        /// <summary>
+        /// Method used to add a given rider to a ride
+        /// </summary>
+        // POST api/values
         [HttpPost]
         public Ride addRiderToRide([FromBody]dynamic sentObject, [FromHeader]string id)
         {
@@ -38,19 +46,26 @@ namespace mRides_server.Controllers
             int rideId = sentObject.rideId;
             return _rideCatalog.addRiderToRide(rideId, userid);
         }
+
+        /// <summary>
+        /// Method used to retrieve a ride given a ride ID
+        /// </summary>
         [HttpGet("{rideId}")]
         public object getRide(int rideId)
         {
             return _rideCatalog.getRide(rideId);
         }
 
+        /// <summary>
+        /// Method used to set the distanceTravelled attribute of a ride
+        /// </summary>
+        // POST api/values
         [HttpPost]
         public void setDistanceTravelled([FromBody]dynamic sentObject)
         {
             int rideId = sentObject.rideId;
             double distanceMetric = sentObject.distanceTravelled;
         }
-
 
     }
 }

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace mRides_server.Logic
 {
-    public class RideCatalog:ICatalog<Ride>
+    public class RideCatalog : ICatalog<Ride>
     {
         List<mRides_server.Models.Ride> Rides;
         private ServerContext _context;
@@ -20,11 +20,14 @@ namespace mRides_server.Logic
 
         public List<mRides_server.Models.Ride> getRides()
         {
-            Rides= _context.Rides.ToList();
+            Rides = _context.Rides.ToList();
             return Rides;
-            
+
         }
 
+        /// <summary>
+        /// Method used to retrieve a ride given a ride ID
+        /// </summary>
         public Ride getRide(int rideId)
         {
             var ride = _context.Rides
@@ -33,8 +36,11 @@ namespace mRides_server.Logic
             return ride;
         }
 
+        /// <summary>
+        /// Method used to create a ride given a ride object and a user's ID
+        /// </summary>
         public Ride create(Ride ride, int userId)
-            {
+        {
 
             if (ride.type == "driver")
             {
@@ -50,10 +56,10 @@ namespace mRides_server.Logic
 
                 UserRides r = new UserRides
                 {
-                    Ride=ride,
+                    Ride = ride,
                     Rider = rider,
-                    location=ride.location,
-                    destinaion=ride.destination
+                    location = ride.location,
+                    destinaion = ride.destination
                 };
                 rider.RidesAsRider.Add(r);
             }
@@ -62,21 +68,27 @@ namespace mRides_server.Logic
             return ride;
         }
 
-         public Ride addRiderToRide(int rideId,int userid)
+        /// <summary>
+        /// Method used to add a given rider to a ride
+        /// </summary>
+        public Ride addRiderToRide(int rideId, int userid)
         {
-           Ride ride= _context.Rides
-                .Include(r=>r.UserRides)
-                    .First(r => r.ID == rideId);
+            Ride ride = _context.Rides
+                 .Include(r => r.UserRides)
+                     .First(r => r.ID == rideId);
             UserRides ur = new UserRides
             {
                 Rider = _context.Users.Find(userid),
                 Ride = ride
             };
-           ride.UserRides.Add(ur);
+            ride.UserRides.Add(ur);
             _context.SaveChanges();
             return ride;
         }
 
+        /// <summary>
+        /// Method used to add a driver to a ride
+        /// </summary>
         public void addDriverToRide(int rideId, int userid)
         {
             Ride ride = _context.Rides
@@ -91,6 +103,9 @@ namespace mRides_server.Logic
             _context.SaveChanges();
         }
 
+        /// <summary>
+        /// Method used to update the distanceTravelled attribute of a given ride
+        /// </summary>
         public void setDistanceTravelled(int rideId, double distanceMetric)
         {
             Ride r = getRide(rideId);
