@@ -44,6 +44,13 @@ namespace mRides_server.Controllers
             return _rideCatalog.getRide(rideId);
         }
 
+        [HttpPost]
+        public void setDistanceTravelled([FromBody]dynamic sentObject)
+        {
+            int rideId = sentObject.rideId;
+            double distanceMetric = sentObject.distanceTravelled;
+        }
+
 
     }
 }

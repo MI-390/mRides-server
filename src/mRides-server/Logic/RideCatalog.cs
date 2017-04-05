@@ -17,6 +17,7 @@ namespace mRides_server.Logic
         {
             _context = context;
         }
+
         public List<mRides_server.Models.Ride> getRides()
         {
             Rides= _context.Rides.ToList();
@@ -31,6 +32,7 @@ namespace mRides_server.Logic
                 .First(r => r.ID == rideId);
             return ride;
         }
+
         public Ride create(Ride ride, int userId)
             {
 
@@ -59,6 +61,7 @@ namespace mRides_server.Logic
             _context.SaveChanges();
             return ride;
         }
+
          public Ride addRiderToRide(int rideId,int userid)
         {
            Ride ride= _context.Rides
@@ -73,6 +76,7 @@ namespace mRides_server.Logic
             _context.SaveChanges();
             return ride;
         }
+
         public void addDriverToRide(int rideId, int userid)
         {
             Ride ride = _context.Rides
@@ -84,6 +88,13 @@ namespace mRides_server.Logic
                 Ride = ride
             };
             ride.UserRides.Add(ur);
+            _context.SaveChanges();
+        }
+
+        public void setDistanceTravelled(int rideId, double distanceMetric)
+        {
+            Ride r = getRide(rideId);
+            r.distanceTravelled = distanceMetric;
             _context.SaveChanges();
         }
 
