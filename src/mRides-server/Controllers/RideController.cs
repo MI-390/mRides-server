@@ -65,6 +65,7 @@ namespace mRides_server.Controllers
         {
             int rideId = sentObject.rideId;
             double distanceMetric = sentObject.distanceTravelled;
+            _rideCatalog.setDistanceTravelled(rideId, distanceMetric);
         }
 
     }
