@@ -79,7 +79,8 @@ namespace mRides_server.Logic
             return _context.Requests
                     .Include(r => r.RiderRequests)
                         .ThenInclude(rr => rr.Rider)
-                        .Where(r => r.Driver == null);
+                        .Where(r => r.Driver == null)
+                        .Take(10);
         }
         //Return All requests without any rider (Drivers looking for Riders
         public virtual IQueryable getNullRiders()
@@ -87,7 +88,8 @@ namespace mRides_server.Logic
             return _context.Requests
                     .Include(r=>r.Driver)
                     .Include(r=>r.destinationCoordinates)
-                        .Where(r => r.RiderRequests.Count==0);
+                        .Where(r => r.RiderRequests.Count==0)
+                        .Take(10);
         }
         public Request mergeRiderRequestToRequest(int driverReqId,int riderReqId)
         {
