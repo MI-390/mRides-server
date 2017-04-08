@@ -153,10 +153,11 @@ namespace mRides_server.Logic
         }
         public void sendPushNotification(int userId, string message)
         {
-            //var fcmToken = _userCatalog.getFcmToken(userId);
+            string fcmToken = _userCatalog.get(userId).fcmToken;
             Message message1 = new Message
             {
-                To = "UzynHVJ3h5dso6S9C1dCEz1xY0P57u9V49DUImQdBIF0GZ8S5GBDDhbww_PwR0dfdaF8F",
+                
+                To = "fcmToken",
                 Notification = new AndroidNotification { Body = message }
 
             };
