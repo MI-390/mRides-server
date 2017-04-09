@@ -113,5 +113,15 @@ namespace mRides_server.Logic
             _context.SaveChanges();
         }
 
+        /// <summary>
+        /// Method used to update the duration attribute of a given ride
+        /// </summary>
+        public void setDuration(int rideId, long durationMetric)
+        {
+            Ride r = getRide(rideId);
+            r.duration = durationMetric;
+            _context.SaveChanges();
+        }
+
     }
 }

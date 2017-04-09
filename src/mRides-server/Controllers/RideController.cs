@@ -68,5 +68,17 @@ namespace mRides_server.Controllers
             _rideCatalog.setDistanceTravelled(rideId, distanceMetric);
         }
 
+        /// <summary>
+        /// Method used to set the duration attribute of a ride
+        /// </summary>
+        // POST api/values
+        [HttpPost]
+        public void setDuration([FromBody]dynamic sentObject)
+        {
+            int rideId = sentObject.rideId;
+            long durationMetric = sentObject.duration;
+            _rideCatalog.setDuration(rideId, durationMetric);
+        }
+
     }
 }

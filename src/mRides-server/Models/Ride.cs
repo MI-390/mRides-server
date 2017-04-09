@@ -14,6 +14,7 @@ namespace mRides_server.Models
         public DateTime dateTime { get; set; }
         public Boolean isWeekly { get; set; }
         public double distanceTravelled { get; set; }
+        public long duration { get; set; }
 
         [NotMapped]
         public string type;
