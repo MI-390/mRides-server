@@ -41,6 +41,12 @@ namespace mRides_server.Controllers
        {
             return _matchingSession.findRiders(Convert.ToInt32(id), request);
        }
+
+        [HttpPost]
+        public void TestFcmMessage([FromHeader]string id, [FromBody]string message)
+        {
+            _matchingSession.sendPushNotification(Convert.ToInt32(id), message);
+        }
         [HttpPost]
         public Request confirm([FromHeader]string id, [FromBody]dynamic sentObj)
         {
