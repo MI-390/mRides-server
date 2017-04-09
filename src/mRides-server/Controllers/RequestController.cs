@@ -26,7 +26,14 @@ namespace mRides_server.Controllers
             _rideCatalog = new RequestCatalog(_context);
         }
 
-
+        /// <summary>
+        /// Used to find a user by user id
+        /// </summary>
+        [HttpGet("{id}")]
+        public virtual object getUser(int id)
+        {
+            return _rideCatalog.getRequests(id);
+        }
 
         [HttpPost]
         public Request createRequest([FromBody]Request request,[FromHeader]string id)
