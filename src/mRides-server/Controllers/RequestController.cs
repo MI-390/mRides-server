@@ -30,9 +30,9 @@ namespace mRides_server.Controllers
         /// Used to find a user by user id
         /// </summary>
         [HttpGet("{id}")]
-        public virtual object getUser(int id)
+        public virtual Request getRequest(int id)
         {
-            return _rideCatalog.getRequests(id);
+            return _rideCatalog.getRequest(id);
         }
 
         [HttpPost]

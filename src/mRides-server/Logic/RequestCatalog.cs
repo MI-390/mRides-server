@@ -36,14 +36,13 @@ namespace mRides_server.Logic
                 .Where(s => s.Driver== null)
                 .ToList();
         }
-        public List<mRides_server.Models.Request> getRequests(int userId)
+        public Request getRequest(int userId)
         {
             return _context.Requests
                  .Include(s => s.Driver)
                  .Include(s=>s.RiderRequests)
                     .ThenInclude(s=>s.Rider)
-                 .Where(s => s.ID== userId)
-                 .ToList();
+                 .First(s => s.ID== userId);
         }
 
    
