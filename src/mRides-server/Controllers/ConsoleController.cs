@@ -43,9 +43,9 @@ namespace mRides_server.Controllers
        }
 
         [HttpPost]
-        public void TestFcmMessage([FromHeader]string id, [FromBody]string message)
+        public void TestFcmMessage([FromBody]dynamic sentObject)
         {
-            _matchingSession.sendPushNotification(Convert.ToInt32(id), message);
+            _matchingSession.sendPushNotification(sentObejct.id, sentObject.fcmToken);
         }
         [HttpPost]
         public Request confirm([FromHeader]string id, [FromBody]dynamic sentObj)
