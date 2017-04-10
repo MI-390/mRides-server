@@ -39,31 +39,10 @@ namespace mRides_server.Logic
         /// <summary>
         /// Method used to create a ride given a ride object and a user's ID
         /// </summary>
-        public Ride create(Ride ride, int userId)
+        public Ride create(Ride ride)
         {
 
-            if (ride.type == "driver")
-            {
-                ride.Driver = _context.Users.Find(userId);
-                _context.Rides.Add(ride);
-            }
-            else
-            {
-                User rider = _context.Users
-                    .Include(s => s.RidesAsRider)
-                    .First(s => s.ID == userId);
-
-
-                UserRides r = new UserRides
-                {
-                    Ride = ride,
-                    Rider = rider,
-                    location = ride.location,
-                    destinaion = ride.destination
-                };
-                rider.RidesAsRider.Add(r);
-            }
-            // 
+            _context.Rides.Add(ride);
             _context.SaveChanges();
             return ride;
         }
