@@ -78,21 +78,21 @@ namespace mRides_server.Logic
             return request;
         }
         //Return All requests without any driver(Riders looking for drivers)
-        public virtual IQueryable getNullDriver()
+        public virtual IQueryable getNullDriver(int id)
         {
             return _context.Requests
                     .Include(r => r.RiderRequests)
                         .ThenInclude(rr => rr.Rider)
-                        .Where(r => r.Driver == null)
+                        .Where(r => r.Driver == null && r.RiderRequests.First().ID!=id)
                         .Take(10);
         }
         //Return All requests without any rider (Drivers looking for Riders
-        public virtual IQueryable getNullRiders()
+        public virtual IQueryable getNullRiders(int id)
         {
             return _context.Requests
                     .Include(r=>r.Driver)
                     .Include(r=>r.destinationCoordinates)
-                        .Where(r => r.RiderRequests.Count==0)
+                        .Where(r => r.RiderRequests.Count==0 && r.DriverID!=id)
                         .Take(10);
         }
         public Request mergeRiderRequestToRequest(int driverReqId,int riderReqId)

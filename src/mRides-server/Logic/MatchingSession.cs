@@ -37,7 +37,7 @@ namespace mRides_server.Logic
         {
             //Create new driver request
             _requestCatalog.create(request, id);
-            var riderRequests = _requestCatalog.getNullDriver();
+            var riderRequests = _requestCatalog.getNullDriver(id);
             List<DestinationCoordinate> destinationCoordinates = request.destinationCoordinates.ToList();
             //riderRequests is a list of requests of riders that are looking for a driver
             
@@ -90,7 +90,7 @@ namespace mRides_server.Logic
 
             
             //riderRequests is a list of requests of riders that are looking for a driver
-            var driverRequests = _requestCatalog.getNullRiders();
+            var driverRequests = _requestCatalog.getNullRiders(id);
             List<Request> filteredRequests = new List<Request>();
 
             foreach (Request driverRequest in driverRequests)
