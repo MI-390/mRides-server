@@ -23,6 +23,7 @@ namespace Tests
 
             var mockContext = new Mock<ServerContext>();
             mockContext.Setup(c => c.Users).Returns(mokSet.Object);
+            mockContext.Setup(c => c.Users.Find(It.IsAny<int>())).Returns(new User {GSD=1 });
             catalog = new UserCatalog(mockContext.Object);
         }
 

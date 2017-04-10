@@ -102,5 +102,9 @@ namespace mRides_server.Logic
             _context.SaveChanges();
         }
 
+        public Ride create(Ride obj, int userId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
