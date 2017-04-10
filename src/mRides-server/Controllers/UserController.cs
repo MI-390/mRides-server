@@ -70,6 +70,18 @@ namespace mRides_server.Controllers
         }
 
         /// <summary>
+        /// This method is used as an api to update a user
+        /// </summary>
+        /// <param name="user">User to be updated</param>
+        /// <return>bool, true if the operation was successful, false otherwise</return>
+        [HttpPost]
+        public bool updateUserSettings([FromHeader]string id, [FromBody] User user)
+        {
+            int userId = Convert.ToInt32(id);
+           return  _userCatalog.updateUserSettings(userId, user);
+        }
+
+        /// <summary>
         /// Returns all the reviews of a user
         /// </summary>
         [HttpPost]
