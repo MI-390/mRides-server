@@ -23,6 +23,8 @@ namespace Tests
 
             var mockContext = new Mock<ServerContext>();
             mockContext.Setup(c => c.Users).Returns(mokSet.Object);
+            mockContext.Setup(c => c.Users.Find(It.IsAny<int>())).Returns(new User { GSD = 90 });
+            mockContext.Setup(c => c.Users.Find(It.IsAny<int>())).Returns(new User { gender = "female" });
             catalog = new UserCatalog(mockContext.Object);
         }
 
@@ -46,53 +48,62 @@ namespace Tests
             } 
         }
 
-        /*
-         * Not run yet 
-         */ 
         [Test]
-        public void GetGSDTest()
+        public void getGSDtest()
         {
-            User u = new User();
-            u.ID = 1;
-            u.GSD = 500;
-            catalog.create(u);
-
-            Assert.AreEqual(catalog.getGSD(1), 500);
+            long userGSD = catalog.getGSD(1);
+            Assert.AreEqual(userGSD, 90);
         }
 
-        /*
-         * Not run yet
-         */
         [Test]
-        public void SetGSDTest()
+        public void setGSDTest()
         {
+            catalog.setGSD(1, 100);
+            long userGSD = catalog.getGSD(1);
+            Assert.AreEqual(userGSD, 100);
+            catalog.setGSD(1, 90);
+        }
 
+        [Test]
+        public void getGenderTest()
+        {
+            string userGender = catalog.getGender(1);
+            Assert.AreEqual(userGender, "female");
+        }
+
+        [Test]
+        public void setGenderTest()
+        {
+            catalog.setGender(1, "male");
+            string userGender = catalog.getGender(1);
+            Assert.AreEqual(userGender, "male");
+            catalog.setGender(1, "female");
         }
 
         public Mock<DbSet<User>> initializeMokSet()
         {
             var usersList = new List<User>();
-             
+
             usersList.Add(new User
             {
                 ID = 1,
+                GSD = 90,
+                gender = "female",
                 RidesAsRider = new List<UserRides>
                 {
                     new UserRides { RideId=1,RiderId=1,driverFeedback="Driver 2 to Rider 1",riderFeedback="Rider 1 to Driver 2"},
-                    //new UserRides { RideId=1,RiderId=3,driverFeedback="User 3 to User 1",riderFeedback="User 1 to User 3"}
 
                 },
                 RidesAsDriver = new List<Ride>
                 {
                    new Ride {ID=2,UserRides=new List<UserRides> {
                        new UserRides { RideId =2,RiderId=4,driverFeedback="Driver 1 to Rider 4",riderFeedback="Rider 4 to Driver 1" }
-                   } },
+                   } }
                   
                 }
 
             });
             
-           
             var users=usersList.AsQueryable();
             var mockSet = new Mock<DbSet<User>>();
             mockSet.As<IQueryable<User>>().Setup(m => m.Provider).Returns(users.Provider);
