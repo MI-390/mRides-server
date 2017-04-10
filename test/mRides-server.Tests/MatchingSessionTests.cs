@@ -25,8 +25,8 @@ namespace Tests
         {
             //MockRequestCatalog
             mockRequestCatalog = new Mock<RequestCatalog>();
-            mockRequestCatalog.Setup(rc => rc.getNullDriver()).Returns(sampleNullRequests());
-            mockRequestCatalog.Setup(rc => rc.getNullRiders()).Returns(sampleNullRequestsRiders());
+            mockRequestCatalog.Setup(rc => rc.getNullDriver(It.IsAny<int>())).Returns(sampleNullRequests());
+            mockRequestCatalog.Setup(rc => rc.getNullRiders(1)).Returns(sampleNullRequestsRiders());
             mockRequestCatalog.Setup(rc => rc.create(It.IsAny<Request>(),5)).Returns(new Request { ID = 5 });
             
             //MockUserCatalog
