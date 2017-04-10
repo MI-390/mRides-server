@@ -41,7 +41,7 @@ namespace mRides_server.Controllers
             return _rideCatalog.create(request, Convert.ToInt32(id));
         }
 
-        [HttpDelete("{id}")]
+        [HttpGet("{id}")]
         public void deleteRequest(int ID)
         {
             
