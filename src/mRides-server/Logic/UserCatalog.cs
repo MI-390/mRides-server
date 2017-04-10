@@ -55,10 +55,30 @@ namespace mRides_server.Logic
                 return true;
             return false;
         }
-        public void updateUser(User user)
+        public bool updateUserSettings(int userId, User user)
         {
-            //_context.Users.Find(userId);
-            
+            // Null check
+            if(user == null)
+            {
+                return false;
+            }
+            // Ensure that the user is only able to update its own user settings
+            if (userId != user.ID)
+            {
+                return false;
+            }
+            // Update the settings
+            User dbUser = _context.Users.Find(user.ID);
+            dbUser.FirstName = user.FirstName;
+            dbUser.LastName = user.LastName;
+            dbUser.isSmoker = user.isSmoker;
+            dbUser.isHandicap = user.isHandicap;
+            dbUser.hasLuggage = user.hasLuggage;
+            dbUser.hasPet = user.hasPet;
+            dbUser.genderPreference = dbUser.genderPreference;
+            dbUser.gender = dbUser.gender;
+            _context.SaveChanges();
+            return true;
         }
         public List<Feedback> getReviews(int id)
         {
