@@ -75,8 +75,8 @@ namespace mRides_server.Logic
             dbUser.isHandicap = user.isHandicap;
             dbUser.hasLuggage = user.hasLuggage;
             dbUser.hasPet = user.hasPet;
-            dbUser.genderPreference = dbUser.genderPreference;
-            dbUser.gender = dbUser.gender;
+            dbUser.genderPreference = user.genderPreference;
+            dbUser.gender = user.gender;
             _context.SaveChanges();
             return true;
         }
