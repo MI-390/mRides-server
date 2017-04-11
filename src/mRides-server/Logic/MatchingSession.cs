@@ -137,7 +137,15 @@ namespace mRides_server.Logic
         {
                 
                 var request=_requestCatalog.mergeRiderRequestToRequest(driverReqId, riderReqId);
+            if (id == driverReqId)
+            {
                 sendPushNotification(riderReqId, "You have been matched");
+            }
+            else
+            {
+                sendPushNotification(driverReqId, "You have been matched");
+            }
+                
                 return request;
         }
         public List<Request> filterByPreferences(IQueryable<Request> requests,int id)
@@ -151,7 +159,7 @@ namespace mRides_server.Logic
                 r.RiderRequests.First().Rider.isSmoker ==user.isSmoker
                 ).ToList();
         }
-        public async void sendPushNotification(int userId, string message)
+        public async Task<IFCMResponse> sendPushNotification(int userId, string message)
         {
             string fcmToken = _userCatalog.get(userId).fcmToken;
             Message message1 = new Message
@@ -164,6 +172,7 @@ namespace mRides_server.Logic
             FCMClient client1 = new FCMClient("AAAAWdiPzA0:APA91bHuL6OOYCKjZVByO-W1e9w0fX15k92Xx1vaxnOelk7K8al6wIIIpVIuUTfp5TUqzI4ordc1NSZ0A8k1l5RSMGDndYDubo1gtssKmvGGFtLocOEI6rfo1_k2bguJwmhvZd9ko0lj");
             var response = await client1.SendMessageAsync(message1);
             var i = 0;
+            return response;
         }
     }
 
