@@ -135,15 +135,17 @@ namespace mRides_server.Logic
 
         public Request confirm(int id, int driverReqId, int riderReqId)
         {
+            var riderId = _requestCatalog.getRequest(riderReqId).RiderRequests.First().RiderID;
                 
-                var request=_requestCatalog.mergeRiderRequestToRequest(driverReqId, riderReqId);
-            if (id == driverReqId)
+            var request=_requestCatalog.mergeRiderRequestToRequest(driverReqId, riderReqId);
+            if (id == request.DriverID)
             {
-                sendPushNotification(riderReqId, "You have been matched");
+               sendPushNotification(riderId, "You have been matched");
             }
             else
             {
-                sendPushNotification(driverReqId, "You have been matched");
+                int driverID = (int) request.DriverID;
+               sendPushNotification(driverID, "You have been matched");
             }
                 
                 return request;
