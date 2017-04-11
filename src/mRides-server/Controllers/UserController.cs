@@ -54,7 +54,8 @@ namespace mRides_server.Controllers
         public Boolean updateFcmToken([FromHeader]string id, [FromBody]dynamic sentObj)
         {
             int userId = Convert.ToInt32(id);
-           return _userCatalog.updateFcmToken(userId, (string)sentObj.fcmToken);
+            string fcmToken = (string) sentObj.fcmToken;
+           return _userCatalog.updateFcmToken(userId, fcmToken);
 
         }
 
